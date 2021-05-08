@@ -1,0 +1,125 @@
+﻿Fase 0:        Traduzir lusidas.txt UTF-8 para ASCII
+
+
+
+
+Fase 1:         Preencher dicionário a partir de lusíadas
+
+
+        Ler caracteres e colocar em string ‘palavra’
+        Traduzir a string para string_t9 ‘t9’
+        Para elementos de tamanho <= 5 buscamos numa BSTreeMap ‘peqBSTree’
+        Se > 5 buscamos numa HashMap de tamanho 9^5 (cujo índice são os 5 primeiros elementos da ‘t9’) que retorna uma BSTreeMap de conflitos de ‘t9’
+        Essa BSTreeMap<string_t9, LinkedListMap> retorna uma LinkedListMap<string, recorrência> ‘lista’ associada ao valor completo de ‘t9’
+        procuramos a ‘palavra’ na ‘lista’ que vai nos retornar o mapeamento de um valor int de recorrência
+        aumentamos o número de recorrência dessa palavra e reorganizamos o ‘lista’ de acordo
+        ou adicionamos a palavra a ‘lista’ com recorrência 1
+
+
+
+
+Fase 2:        Fazer interface para utilizar a aplicação
+
+
+         Se possível usar a interface gráfica
+        Se nao, fazer uma pequena interface em consola
+
+
+
+
+Fase 3:        Implementar persistência
+
+
+        (Basear em implementação de persistência de serialização em java)
+
+
+
+
+Fase 4 (?) :        Implementar interface gráfica se necessário
+
+
+
+
+String {
+        int size;
+        int* value;
+
+
+        String* new_String(int size, int* value);
+
+
+        int compare_String(String* a, String* b){
+                return strcmp(a->value, b->value);
+        }
+}
+
+
+#define typeT9  ???
+
+
+StringT9 {
+        int size;
+        typeT9* value;
+
+
+        StringT9* new_StringT9(int size, typeT9* value);
+
+
+        int compare_Stringt9(StringT9* a, StringT9* b);
+
+
+//        typeT9 getValue_Stringt9(StringT9* this);
+}
+
+
+BSTreeMap {                // < String_t9, LinkedListMap >
+        find_BSTreeMap(BSTreeMap* this, String_t9 );
+
+
+        BSTreeMap* new_BSTreeMap();
+}
+
+
+HashMap {                // < BSTreeMap >
+
+
+        HashMap* new_HashMap();
+
+
+        get_HashMap(HashMap* this, String_t9 toFind);
+}
+
+
+
+
+LinkedListMap {                // < String, Int > implements Iterable
+
+
+                // circular, BSTreeMap retorna o elemento root que tem um next* para prox elem
+        /* private */ LLMNode* root;
+
+
+        LinkedListMap* new_LinkedListMap();
+
+
+        void update_LinkedListMap(LinkedListMap* this);         // reorganizar após alterarmos a recorrência
+                                        // em Fase 1 apenas fazer para todas quando já estiver acabado
+        int* find_LinkedListMap(LinkedListMap* this, String* word) //
+
+
+        void add_LinkedListMap(LinkedListMap* this, String* word, int count) 
+        void addKey_LinkedListMap(LinkedListMap* this, String* word);        // adicionar nova palavra e inicializar o count com 1;
+        void increaseCount_LinkedListMap(LinkedListMap* this, String* word);        // fazer um find e depois incrementa o count em 1
+
+
+}
+
+
+LLMNode {                // < String, Int >
+        String* word;
+        int* count;
+
+
+        LLMNode* next;
+        LLMNode* prev;
+}
