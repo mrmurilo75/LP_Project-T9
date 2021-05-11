@@ -12,11 +12,11 @@
 	typedef struct string_t* String;
 
 	struct string_t {
-		int size;
+		int length;
 		int* value; // char[] equivalent
 	};
 
-	String new_String(int size, int* value);
+	String new_String(int* value);
 		// create a new String object
 
 	int String_compare(String a, String b);
@@ -37,11 +37,11 @@
 	typedef struct stringt9_t* StringT9;
 
 	struct stringt9_t {
-		int size;
+		int length;
 		byte* value;
 	};
 
-        StringT9 new_StringT9(int size, byte* value);
+        StringT9 new_StringT9(byte* value);
 		// create a new StringT9 object
 
 	int StringT9_compare(StringT9 a, StringT9 b);
