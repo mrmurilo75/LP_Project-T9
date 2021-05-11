@@ -2,12 +2,12 @@
 #include <string.h>
 #include "util.h"
 
-String new_String(int* value) {		// create a new String object
+String new_String(int length, int* value) {		// create a new String object
 
 	String result = (String) malloc(sizeof(struct string_t));
 
 	result->value = value;
-	result->length = strlen((char*) value);
+	result->length = length;
 
 	return result;
 }
