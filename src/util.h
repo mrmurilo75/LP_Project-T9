@@ -16,7 +16,7 @@
 		int* value; // char[] equivalent
 	};
 
-	String new_String(int* value);
+	String new_String(int length, int* value);
 		// create a new String object
 
 	int String_compare(String a, String b);
@@ -41,7 +41,7 @@
 		byte* value;
 	};
 
-        StringT9 new_StringT9(byte* value);
+        StringT9 new_StringT9(int length, byte* value);
 		// create a new StringT9 object
 
 	int StringT9_compare(StringT9 a, StringT9 b);
@@ -85,6 +85,9 @@
 	void* BSTMNode_setLeftNode(BSTMNode node, BSTMNode left);
 		// node: node in which to set the left node
 		// left: node be set on the leftNode
+
+	void* BSTMNode_getValue(BSTMNode node);
+		// node: node from which to get the value
 
 	void* BSTMNode_setValue(BSTMNode node, void* value);
 		// node: node in which to set the value
