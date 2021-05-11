@@ -86,6 +86,9 @@
 		// node: node in which to set the left node
 		// left: node be set on the leftNode
 
+	void* BSTMNode_getValue(BSTMNode node);
+		// node: node from which to get the value
+
 	void* BSTMNode_setValue(BSTMNode node, void* value);
 		// node: node in which to set the value
 		// value: value to set
