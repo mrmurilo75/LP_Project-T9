@@ -26,6 +26,7 @@
 		// 	1 if a > b
 
 	int String_equals(String a, String b);
+		// return non-zero int if the value of the Strings *are* the same
 
 #endif // STRING_TYPE_INCLUDED
 
@@ -48,6 +49,9 @@
 		// return -1 if a < b
 		// 	0 if equal
 		// 	1 if a > b
+
+	int StringT9_equals(StringT9 a, StringT9 b);
+		//returns non-zero if the value Strings *are* the same
 
 #endif // STRING_T9_TYPE_INCLUDED
 
@@ -142,42 +146,41 @@
 #ifndef LINKEDLISTMAP_TYPE_INCLUDED
 #define LINKEDLISTMAP_TYPE_INCLUDED
 
+	typedef struct llmnode_t* LLMNode;
+
+	struct llmnode_t {
+		LLMNode next;
+		LLMNode previous;
+
+		void* value;
+	};
+
+	typedef struct linkedlistmap_t* LinkedListMap;
+
+	struct linkedlistmap_t {
+		LLMNode root;
+	};
+
+	LinkedListMap new_LinkedListMap();
+
+	void LinkedListMap_sort(LinkedListMap list);
+		// list: the LinkedList to be organized by key
+
+        void* LinkedListMap_find(LinkedListMap list, void* key);
+		// list: the list in which to search
+		// key: the key to find
+		// returns a void* to the value mapped by this key
+		// or NULL if theres no such mapping
 
 
+        void LinkedListMap_add(LinkedListMap list, void* key, void* value);
+		// list: the list in which to add
+		// key: the key to which the value will be mapped
+		// value: the value of the mapping
 
+        void* LinkedListMap_find(LinkedListMap list, void* key);
+		// list: the list in which to search
+		// key: the key to be removed
 
+#endif // LINKEDLISTMAP_TYPE_INCLUDED
 
-
-
-/* 
-LinkedListMap {                // < String, Int > implements Iterable
-
-
-                // circular, BSTreeMap retorna o elemento root que tem um next* para prox elem
-        /* private */ LLMNode* root;
-
-
-        LinkedListMap* new_LinkedListMap();
-
-
-        void update_LinkedListMap(LinkedListMap* this);         // reorganizar após alterarmos a recorrência
-                                        // em Fase 1 apenas fazer para todas quando já estiver acabado
-        int* find_LinkedListMap(LinkedListMap* this, String* word) //
-
-
-        void add_LinkedListMap(LinkedListMap* this, String* word, int count) 
-        void addKey_LinkedListMap(LinkedListMap* this, String* word);        // adicionar nova palavra e inicializar o count com 1;
-        void increaseCount_LinkedListMap(LinkedListMap* this, String* word);        // fazer um find e depois incrementa o count em 1
-
-
-}
-
-
-LLMNode {                // < String, Int >
-        String* word;
-        int* count;
-
-
-        LLMNode* next;
-        LLMNode* prev;
-} */
