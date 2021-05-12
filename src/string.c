@@ -22,7 +22,15 @@ int String_compare(String a, String b) {	// compare String objects
 	while(i < minLenght && a->value[i] == b->value[i])
 		i++;
 
-	return a->value[i] - b->value[i];
+	if (a->value[i] != b->value[i])
+        return a->value[i] - b->value[i];
+
+    if(a->length == b->length)
+        return 0;
+    else if (a->length > b->length)
+        return 1;
+
+    return -1;
 }
 
 
