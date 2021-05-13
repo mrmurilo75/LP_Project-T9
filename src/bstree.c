@@ -1,4 +1,11 @@
 #include "util.h"
+#include <stdlib.h>
+
+
+BSTreeMap new_BSTreeMap() {
+    BSTreeMap result = (BSTreeMap) malloc(sizeof(struct bstreemap_t));
+    result->root = NULL;
+}
 
 void* BSTMNode_getRightNode(BSTMNode node) {
     return node->rightNode;

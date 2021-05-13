@@ -158,6 +158,38 @@
 		void* value;
 	};
 
+	LLMNode new_LLMNode();
+	//create LLMNode
+	//ALL VALUES == NULL
+	    //DONE
+
+	void LLMNode_setNext(LLMNode this, LLMNode next);
+	//this: node to set the next
+	//next: node to set as next
+        //DONE
+
+    void LLMNode_setPrevious(LLMNode this, LLMNode previous);
+    //this: node to set the previous
+    //previous: node to set as previous
+        //DONE
+
+    void LLMNode_setValue(LLMNode this, void* value);
+    //this: node to set the value
+    //value: value to set as value
+        //DONE
+
+    LLMNode LLMNode_getNext(LLMNode this);
+    // this: node from which to get the next
+        //DONE
+
+    LLMNode LLMNode_getPrevious(LLMNode this);
+    // this: node from which to get the previous
+        //DONE
+
+    void* LLMNode_getValue(LLMNode this);
+    // this: node from which to get the value
+        //DONE
+
 	typedef struct linkedlistmap_t* LinkedListMap;
 
 	struct linkedlistmap_t {
@@ -165,23 +197,37 @@
 	};
 
 	LinkedListMap new_LinkedListMap();
+        //DONE
+	    void LinkedListMap_setRoot(LinkedListMap list, LLMNode node);
+	    //list : the LinkedList to be set
+	    //node : node to set as root
+            //DONE
 
-	void LinkedListMap_sort(LinkedListMap list);
+	    void LinkedListMap_sort(LinkedListMap list);
 		// list: the LinkedList to be organized by key
+
+		void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual);
+		    //root: root node from the list we want to search
+		    //value: value we want to search
+		    //prev: previous node
+		    //atual: next node
+		    //DONE
+
 
         void* LinkedListMap_find(LinkedListMap list, void* key);
 		// list: the list in which to search
 		// key: the key to find
 		// returns a void* to the value mapped by this key
 		// or NULL if theres no such mapping
-
+            //DONE
 
         void LinkedListMap_add(LinkedListMap list, void* key, void* value);
 		// list: the list in which to add
 		// key: the key to which the value will be mapped
 		// value: the value of the mapping
 
-        void* LinkedListMap_find(LinkedListMap list, void* key);
+
+        void* LinkedListMap_remove(LinkedListMap list, void* key);
 		// list: the list in which to search
 		// key: the key to be removed
 
