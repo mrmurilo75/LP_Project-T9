@@ -68,7 +68,7 @@
 		void* value;
 	};
 
-	BSTMNode new_BSTMNode();		// TODO
+	BSTMNode new_BSTMNode();
 		// create an empty node
 		// (all values NULL)
 
@@ -103,13 +103,13 @@
         BSTreeMap new_BSTreeMap();
 		// create a new empty BSTreeMap
 
-        void* BSTreeMap_find(BSTreeMap tree, void* key);
+        void* BSTreeMap_find(BSTreeMap tree, void* key);		// TODO
 		// tree: the tree to search in
 		// key: the object to find
 		// returns a void* to the value to which this object is mapped
 		// returns NULL if theres no such object in tree
 
-	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);
+	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);		// TODO
 		// tree: the tree to insert in
 		// key: the object to be mapped
 		// value: the value to which the key will be mapped

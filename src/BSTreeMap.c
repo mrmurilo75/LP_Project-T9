@@ -1,6 +1,12 @@
 #include "util.h"
 #include <stdlib.h>
 
+BSTMNode new_BSTMNode() {
+	BSTMNode result = (BSTMNode) malloc(sizeof(struct bstmnode_t));
+	rightNode = NULL;
+	leftNode = NULL;
+	value = NULL;
+}
 
 void* BSTMNode_getRightNode(BSTMNode node) {
     return node->rightNode;
@@ -82,5 +88,4 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);
         return x;
     }
  */
-
 
