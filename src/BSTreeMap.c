@@ -2,11 +2,6 @@
 #include <stdlib.h>
 
 
-BSTreeMap new_BSTreeMap() {
-    BSTreeMap result = (BSTreeMap) malloc(sizeof(struct bstreemap_t));
-    result->root = NULL;
-}
-
 void* BSTMNode_getRightNode(BSTMNode node) {
     return node->rightNode;
 }
@@ -29,6 +24,11 @@ void* BSTMNode_getValue(BSTMNode node) {
 
 void BSTMNode_setValue(BSTMNode node, void* value) {
     node->value = value;
+}
+
+BSTreeMap new_BSTreeMap() {
+    BSTreeMap result = (BSTreeMap) malloc(sizeof(struct bstreemap_t));
+    result->root = NULL;
 }
 
 void* BSTreeMap_find(BSTreeMap tree, void* key);
@@ -83,4 +83,4 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);
     }
  */
 
-void BSTreeMap_remove(BSTreeMap tree, void* key);
+

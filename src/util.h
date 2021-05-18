@@ -28,7 +28,7 @@
 	int String_equals(String a, String b);
 		// return non-zero int if the value of the Strings *are* the same
 
-#endif // STRING_TYPE_INCLUDED
+#endif // STRING_TYPE_INCLUDED		--DONE
 
 
 #ifndef STRING_T9_TYPE_INCLUDED
@@ -53,7 +53,7 @@
 	int StringT9_equals(StringT9 a, StringT9 b);
 		//returns non-zero if the value Strings *are* the same
 
-#endif // STRING_T9_TYPE_INCLUDED
+#endif // STRING_T9_TYPE_INCLUDED		--DONE
 
 
 #ifndef BSTREEMAP_TYPE_INCLUDED
@@ -68,7 +68,7 @@
 		void* value;
 	};
 
-	BSTMNode new_BSTMNode();
+	BSTMNode new_BSTMNode();		// TODO
 		// create an empty node
 		// (all values NULL)
 
@@ -114,11 +114,11 @@
 		// key: the object to be mapped
 		// value: the value to which the key will be mapped
 
-	void BSTreeMap_remove(BSTreeMap tree, void* key);
+	void BSTreeMap_remove(BSTreeMap tree, void* key);		// TO/DO (if necessary)
 		// tree: the tree to search in
 		// key: the key of the mapping to be removed
 
-#endif // BSTREEMAP_TYPE_INCLUDED
+#endif // BSTREEMAP_TYPE_INCLUDED		--
 
 
 #ifndef HASHMAP_TYPE_INCLUDED
@@ -126,24 +126,24 @@
 
 	typedef void* HashMap; // implemented as an array (! use calloc)
 
-	HashMap new_HashMap();
+	HashMap new_HashMap();		// TODO
 		// create an empty HashMap
 
-	void* HashMap_get(HashMap map, void* key);
+	void* HashMap_get(HashMap map, void* key);		// TODO
 		// map: the map in which to search
 		// key: the key to find 
 		// returns a void* to the value mapped to this key
 
-	void HashMap_insert(HashMap map, void* key, void* value);
+	void HashMap_insert(HashMap map, void* key, void* value);		// TODO
 		// map: the map in which to insert
 		// key: the key to insert
 		// value: the value to be mapped to the respect key
 
-	void HashMap_remove(HashMap map, void* key);
+	void HashMap_remove(HashMap map, void* key);		// TODO
 		// map: the map in which to search
 		// key: the key of value to remove the value
 
-#endif // HASHMAP_TYPE_INCLUDED
+#endif // HASHMAP_TYPE_INCLUDED		--TODO
 
 
 #ifndef LINKEDLISTMAP_TYPE_INCLUDED
@@ -159,36 +159,29 @@
 	};
 
 	LLMNode new_LLMNode();
-	//create LLMNode
-	//ALL VALUES == NULL
-	    //DONE
+		//create LLMNode
+		//ALL VALUES == NULL
 
 	void LLMNode_setNext(LLMNode this, LLMNode next);
-	//this: node to set the next
-	//next: node to set as next
-        //DONE
+		//this: node to set the next
+		//next: node to set as next
 
-    void LLMNode_setPrevious(LLMNode this, LLMNode previous);
-    //this: node to set the previous
-    //previous: node to set as previous
-        //DONE
+	void LLMNode_setPrevious(LLMNode this, LLMNode previous);
+		//this: node to set the previous
+		//previous: node to set as previous
 
-    void LLMNode_setValue(LLMNode this, void* value);
-    //this: node to set the value
-    //value: value to set as value
-        //DONE
+	void LLMNode_setValue(LLMNode this, void* value);
+		//this: node to set the value
+		//value: value to set as value
 
-    LLMNode LLMNode_getNext(LLMNode this);
-    // this: node from which to get the next
-        //DONE
+	LLMNode LLMNode_getNext(LLMNode this);
+		// this: node from which to get the next
 
-    LLMNode LLMNode_getPrevious(LLMNode this);
-    // this: node from which to get the previous
-        //DONE
+	LLMNode LLMNode_getPrevious(LLMNode this);
+		// this: node from which to get the previous
 
-    void* LLMNode_getValue(LLMNode this);
-    // this: node from which to get the value
-        //DONE
+	void* LLMNode_getValue(LLMNode this);
+		// this: node from which to get the value
 
 	typedef struct linkedlistmap_t* LinkedListMap;
 
@@ -197,39 +190,34 @@
 	};
 
 	LinkedListMap new_LinkedListMap();
-        //DONE
-	    void LinkedListMap_setRoot(LinkedListMap list, LLMNode node);
-	    //list : the LinkedList to be set
-	    //node : node to set as root
-            //DONE
 
-	    void LinkedListMap_sort(LinkedListMap list);
+	void LinkedListMap_setRoot(LinkedListMap list, LLMNode node);
+		//list : the LinkedList to be set
+		//node : node to set as root
+
+	void LinkedListMap_sort(LinkedListMap list);
 		// list: the LinkedList to be organized by key
 
-		void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual);
-		    //root: root node from the list we want to search
-		    //value: value we want to search
-		    //prev: previous node
-		    //atual: next node
-		    //DONE
-
+	void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual);
+		//root: root node from the list we want to search
+		//value: value we want to search
+		//prev: previous node
+		//atual: next node
 
         void* LinkedListMap_find(LinkedListMap list, void* key);
 		// list: the list in which to search
 		// key: the key to find
 		// returns a void* to the value mapped by this key
 		// or NULL if theres no such mapping
-            //DONE
 
-        void LinkedListMap_add(LinkedListMap list, void* key, void* value);
+        void LinkedListMap_add(LinkedListMap list, void* key, void* value);		// TODO
 		// list: the list in which to add
 		// key: the key to which the value will be mapped
 		// value: the value of the mapping
 
-
-        void* LinkedListMap_remove(LinkedListMap list, void* key);
+        void* LinkedListMap_remove(LinkedListMap list, void* key);		// TO/DO (if necessary)
 		// list: the list in which to search
 		// key: the key to be removed
 
-#endif // LINKEDLISTMAP_TYPE_INCLUDED
+#endif // LINKEDLISTMAP_TYPE_INCLUDED		--
 

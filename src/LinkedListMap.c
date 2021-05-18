@@ -1,13 +1,6 @@
 #include "util.h"
 #include <stdlib.h>
 
-
-    LinkedListMap new_LinkedListMap() {
-        LinkedListMap result = (LinkedListMap) malloc(sizeof(struct linkedlistmap_t));
-        result->root = NULL;
-        return result;
-    }
-
     LLMNode new_LLMNode() {
         LLMNode result = (LLMNode) malloc(sizeof(struct llmnode_t));
         result->next = NULL;
@@ -40,6 +33,13 @@
         return this->value;
     }
 
+
+    LinkedListMap new_LinkedListMap() {
+        LinkedListMap result = (LinkedListMap) malloc(sizeof(struct linkedlistmap_t));
+        result->root = NULL;
+        return result;
+    }
+
     void LinkedListMap_setRoot(LinkedListMap list, LLMNode node) {
         list->root = node;
     }
@@ -65,35 +65,5 @@
         return LLMNode_getValue(atual);
     }
 
-    void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    void LinkedListMap_add(LinkedListMap list, void* key, void* value);
 
