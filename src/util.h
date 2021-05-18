@@ -101,10 +101,10 @@
 		// node: node in which to set the value
 		// value: value to set
 
-	void* BSTMNode_getKey(BSTMNode node);		// TODO
+	void* BSTMNode_getKey(BSTMNode node);
 		// node: node from which to get the key
 
-	int BSTMNode_compareKey(BSTMNode node, void* key);		// TODO
+	int BSTMNode_compareKey(BSTMNode node, void* key);
 		// node: node with which to compare
 		// key: the key to compare
 		// return -1 if given key is sorted to the left
@@ -121,13 +121,13 @@
         BSTreeMap new_BSTreeMap();
 		// create a new empty BSTreeMap
 
-        void* BSTreeMap_find(BSTreeMap tree, void* key);		// TODO
+        void* BSTreeMap_find(BSTreeMap tree, void* key);
 		// tree: the tree to search in
 		// key: the object to find
 		// returns a void* to the value to which this object is mapped
 		// returns NULL if theres no such object in tree
 
-	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);		// TODO
+	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);
 		// tree: the tree to insert in
 		// key: the object to be mapped
 		// value: the value to which the key will be mapped
@@ -137,7 +137,7 @@
 		// key: the key of the mapping to be removed
 		// returns the value removed
 
-#endif // BSTREEMAP_TYPE_INCLUDED		--
+#endif // BSTREEMAP_TYPE_INCLUDED		--DONE
 
 
 #ifndef HASHMAP_TYPE_INCLUDED
