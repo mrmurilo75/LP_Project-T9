@@ -65,12 +65,20 @@
 		BSTMNode rightNode;
 		BSTMNode leftNode;
 
+
+		void* key;
 		void* value;
 	};
 
-	BSTMNode new_BSTMNode();
+	BSTMNode new_BSTMNode(void* key);		// TODO UPDATE
+		// key: the key to be associated with this node
 		// create an empty node
-		// (all values NULL)
+		// (all other values NULL)
+
+	BSTMNode new_BSTMNode(void* key, void* value);		// TODO UPDATE
+		// key: the key to be associated with this node
+		// value: value to which the key will be mapped
+		// (all other values NULL)
 
 	void* BSTMNode_getRightNode(BSTMNode node);
 		// node: node in which to get the right node
@@ -92,6 +100,16 @@
 	void* BSTMNode_setValue(BSTMNode node, void* value);
 		// node: node in which to set the value
 		// value: value to set
+
+	void* BSTMNode_getKey(BSTMNode node);		// TODO ADDED
+		// node: node from which to get the key
+
+	int BSTMNode_compareKey(BSTMNode node, void* key);		// TODO ADDED
+		// node: node with which to compare
+		// key: the key to compare
+		// return -1 if given key is sorted to the left
+		// 	0 if the node's key is equal to the given key
+		//	1 if the given key is sorted to the left
 
 
 	typedef struct bstreemap_t* BSTreeMap;
