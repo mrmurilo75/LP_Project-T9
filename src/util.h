@@ -70,12 +70,12 @@
 		void* value;
 	};
 
-	BSTMNode new_BSTMNode(void* key);		// TODO UPDATE
+	BSTMNode new_BSTMNode(void* key);
 		// key: the key to be associated with this node
 		// create an empty node
 		// (all other values NULL)
 
-	BSTMNode new_BSTMNode(void* key, void* value);		// TODO UPDATE
+	BSTMNode new_BSTMNode(void* key, void* value);
 		// key: the key to be associated with this node
 		// value: value to which the key will be mapped
 		// (all other values NULL)
@@ -83,28 +83,28 @@
 	void* BSTMNode_getRightNode(BSTMNode node);
 		// node: node in which to get the right node
 
-	void* BSTMNode_setRightNode(BSTMNode node, BSTMNode right);
+	void BSTMNode_setRightNode(BSTMNode node, BSTMNode right);
 		// node: node in which to set the right node
 		// right: node be set on the rightNode
 
 	void* BSTMNode_getLeftNode(BSTMNode node);
 		// node: node in which to get the left node
 
-	void* BSTMNode_setLeftNode(BSTMNode node, BSTMNode left);
+	void BSTMNode_setLeftNode(BSTMNode node, BSTMNode left);
 		// node: node in which to set the left node
 		// left: node be set on the leftNode
 
 	void* BSTMNode_getValue(BSTMNode node);
 		// node: node from which to get the value
 
-	void* BSTMNode_setValue(BSTMNode node, void* value);
+	void BSTMNode_setValue(BSTMNode node, void* value);
 		// node: node in which to set the value
 		// value: value to set
 
-	void* BSTMNode_getKey(BSTMNode node);		// TODO ADDED
+	void* BSTMNode_getKey(BSTMNode node);		// TODO
 		// node: node from which to get the key
 
-	int BSTMNode_compareKey(BSTMNode node, void* key);		// TODO ADDED
+	int BSTMNode_compareKey(BSTMNode node, void* key);		// TODO
 		// node: node with which to compare
 		// key: the key to compare
 		// return -1 if given key is sorted to the left
@@ -132,9 +132,10 @@
 		// key: the object to be mapped
 		// value: the value to which the key will be mapped
 
-	void BSTreeMap_remove(BSTreeMap tree, void* key);		// TO/DO (if necessary)
+	void* BSTreeMap_remove(BSTreeMap tree, void* key);		// TO/DO (if necessary)
 		// tree: the tree to search in
 		// key: the key of the mapping to be removed
+		// returns the value removed
 
 #endif // BSTREEMAP_TYPE_INCLUDED		--
 
