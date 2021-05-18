@@ -1,15 +1,6 @@
 #include "util.h"
 #include <stdlib.h>
 
-BSTMNode new_BSTMNode(void* key) {
-	BSTMNode result = (BSTMNode) malloc(sizeof(struct bstmnode_t));
-	result->rightNode = NULL;
-	result->leftNode = NULL;
-
-	result->key = key;
-	result->value = NULL;
-}
-
 BSTMNode new_BSTMNode(void* key, void* value) {
 	BSTMNode result = (BSTMNode) malloc(sizeof(struct bstmnode_t));
 	result->rightNode = NULL;
@@ -17,6 +8,8 @@ BSTMNode new_BSTMNode(void* key, void* value) {
 
 	result->key = key;
 	result->value = value;
+
+	return result;
 }
 
 void* BSTMNode_getRightNode(BSTMNode node) {
@@ -56,6 +49,8 @@ int BSTMNode_compareKey(BSTMNode node, void* key){		// !! Defined for key of typ
 BSTreeMap new_BSTreeMap() {
 	BSTreeMap result = (BSTreeMap) malloc(sizeof(struct bstreemap_t));
 	result->root = NULL;
+
+	return result;
 }
 
 
@@ -63,9 +58,8 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 	if(tree == NULL || key == NULL) return NULL;
 
 	BSTMNode node = tree->root;
-	StringT9 nodeKey;
-	while(node != NULL && (nodeKey = BSTMNode_getKey(node)) != NULL) {
-		int comparison = BSTMNode_compareKey(nodeKey, key);
+	while(node != NULL) {
+		int comparison = BSTMNode_compareKey(node, key);
 
 		if(comparison == 0)
 			return BSTMNode_getValue(node);
@@ -79,7 +73,7 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 		}
 	}
 
-	return NUll;
+	return NULL;
 }
 
 /*private*/ BSTMNode BSTMNode_insert(BSTMNode node, void* key, void* value);
@@ -89,9 +83,9 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 		// returns NULL if no new node was created
 		// otherwise returns the node created (or parent) for balacing
 
-/*private*/ BSTMNode BSTMNode_rotateRight(node);	// TODO
+/*private*/ BSTMNode BSTMNode_rotateRight(BSTMNode node);	// TODO
 
-/*private*/ BSTMNode BSTMNode_rotateLeft(node);		// TODO
+/*private*/ BSTMNode BSTMNode_rotateLeft(BSTMNode node);		// TODO
 
 void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 	if(key == NULL) return;
@@ -104,11 +98,11 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 
 	void* root = tree->root;
 	if(root == NULL) {
-		tree->root = new BSTMNode(key, value);
+		tree->root = new_BSTMNode(key, value);
 		return;
 	}
 
-	root = BSTMNode_insert(node, key, value);
+	root = BSTMNode_insert(root, key, value);
 	if(root == NULL) 	// inserted in an existing node
 		return;
 

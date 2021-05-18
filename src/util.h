@@ -70,11 +70,6 @@
 		void* value;
 	};
 
-	BSTMNode new_BSTMNode(void* key);
-		// key: the key to be associated with this node
-		// create an empty node
-		// (all other values NULL)
-
 	BSTMNode new_BSTMNode(void* key, void* value);
 		// key: the key to be associated with this node
 		// value: value to which the key will be mapped
@@ -127,7 +122,7 @@
 		// returns a void* to the value to which this object is mapped
 		// returns NULL if theres no such object in tree
 
-	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value);
+	void BSTreeMap_insert(BSTreeMap tree, void* key, void* value); 		// DOING (murilo)
 		// tree: the tree to insert in
 		// key: the object to be mapped
 		// value: the value to which the key will be mapped
