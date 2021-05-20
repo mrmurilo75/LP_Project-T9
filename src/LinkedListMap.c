@@ -46,12 +46,12 @@
 
     void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual) {
         *prev = root;
-        *atual = root->next;
-        while ((*atual) != NULL && (*atual)->value != value) {
+        *atual = LLMNode_getNext(root);
+        while ((*atual) != NULL && LLMNode_getValue(*atual) != value) {
             *prev = *atual;
-            *atual = (*atual)->next;
+            *atual = LLMNode_getNext(*atual);
         }
-        if ((*atual) != NULL && (*atual)->value != value)
+        if ((*atual) != NULL && LLMNode_getValue(*atual) != value)
             *atual = NULL; //In case we dont find the value
     }
 
@@ -65,5 +65,7 @@
         return LLMNode_getValue(atual);
     }
 
-    void LinkedListMap_add(LinkedListMap list, void* key, void* value);
+    void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
+
+    }
 
