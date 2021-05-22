@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <string.h>
 
 GtkWidget *window,
 	*grid,
@@ -25,7 +26,11 @@ gchar *buttonLabels[12] = {
 	"4", "5", "6", 
 	"7", "8", "9", 
 	"C", "0", "S" 
-	}; 
+	};
+
+
+void buttonClick(GtkWidget *widget, gpointer data);
+// create a button_cliked callback that compare the label and calls the respective funtion
 
 
 int main(int argc, char* argv[]) {
@@ -45,6 +50,7 @@ int main(int argc, char* argv[]) {
 	for(int line = 0, pos = 0; line < 4; line++)
 		for(int col = 0; col < 3; col++) {
 			buttons[pos] = gtk_button_new_with_label(buttonLabels[pos]);
+			g_signal_connect(G_OBJECT(buttons[pos]), "clicked", G_CALLBACK(buttonClick), buttons[pos]); 
 			gtk_grid_attach(GTK_GRID(grid), buttons[pos], col, line, 1, 1);
 			pos++;
 		}
@@ -59,4 +65,14 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
+
+void buttonClick(GtkWidget *widget, gpointer data) {
+	const char *label = gtk_button_get_label(data);
+	g_print("button %s\n", label);
+
+	return;
+}
+
+
+
 
