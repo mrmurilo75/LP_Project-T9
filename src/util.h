@@ -288,14 +288,14 @@
 	Dictionary new_Dictionary();
 		//create a new empty Dicitionary
 
-	LinkedListMap Dictionary_find(Dictionary dict, StringT9 value);		// TODO
+	LinkedListMap Dictionary_find(Dictionary dict, StringT9 value);
 		// dict: the dictionary to search in
 		// value: the stringT9 to be found
 		// returns the LinkedListMap corresponding to this stringT9
 
-	void Dictionary_insert(Dictionary dict, String value);		// TODO
+	void Dictionary_insert(Dictionary dict, String value);
 		// dict: the dictionary to insert in
 		// value: the string to be inserted (if there is no mapping, or upcount otherwise)
 
-#endif	// DICTIONARY_H_INCLUDED
+#endif	// DICTIONARY_H_INCLUDED		--DONE
 
