@@ -169,24 +169,29 @@
 		LLMNode next;
 		LLMNode previous;
 
+		void* key;
 		void* value;
 	};
 
 	LLMNode new_LLMNode();
-		//create LLMNode
-		//ALL VALUES == NULL
+		// create LLMNode
+		// ALL VALUES == NULL
 
 	void LLMNode_setNext(LLMNode this, LLMNode next);
-		//this: node to set the next
-		//next: node to set as next
+		// this: node to set the next
+		// next: node to set as next
 
 	void LLMNode_setPrevious(LLMNode this, LLMNode previous);
-		//this: node to set the previous
-		//previous: node to set as previous
+		// this: node to set the previous
+		// previous: node to set as previous
+
+	void LLMNode_setKey(LLMNode this, void* key);
+		// this: node to set the value
+		// key: value to set as key
 
 	void LLMNode_setValue(LLMNode this, void* value);
-		//this: node to set the value
-		//value: value to set as value
+		// this: node to set the value
+		// value: value to set as value
 
 	LLMNode LLMNode_getNext(LLMNode this);
 		// this: node from which to get the next
@@ -196,6 +201,9 @@
 
 	void* LLMNode_getValue(LLMNode this);
 		// this: node from which to get the value
+
+	void* LLMNode_getKey(LLMNode this);
+		// this: node to set the value
 
 	typedef struct linkedlistmap_t* LinkedListMap;
 
@@ -209,16 +217,13 @@
 		//list : the LinkedList to be set
 		//node : node to set as root
 
+	LLMNode LinkedListMap_getRoot(LinkedListMap list);
+		//list : the LinkedList to get the root from
+
 	void LinkedListMap_sort(LinkedListMap list);
 		// list: the LinkedList to be organized by key
 
-	void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual);
-		//root: root node from the list we want to search
-		//value: value we want to search
-		//prev: previous node
-		//atual: next node
-
-        void* LinkedListMap_find(LinkedListMap list, void* key);
+        void* LinkedListMap_find(LinkedListMap list, void* key);		// UPDATED
 		// list: the list in which to search
 		// key: the key to find
 		// returns a void* to the value mapped by this key

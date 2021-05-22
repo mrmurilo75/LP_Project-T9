@@ -1,71 +1,88 @@
 #include "util.h"
 #include <stdlib.h>
 
-    LLMNode new_LLMNode() {
-        LLMNode result = (LLMNode) malloc(sizeof(struct llmnode_t));
-        result->next = NULL;
-        result->previous = NULL;
-        result->value = NULL;
-        return result;
-    }
+	LLMNode new_LLMNode() {
+		LLMNode result = (LLMNode) malloc(sizeof(struct llmnode_t));
+		result->next = NULL;
+		result->previous = NULL;
+		result->value = NULL;
+		return result;
+	}
 
-    void LLMNode_setNext(LLMNode this, LLMNode next){
-        this->next = next;
-    }
+	void LLMNode_setNext(LLMNode this, LLMNode next){
+		if(this == NULL) return;
+		this->next = next;
+	}
 
-    void LLMNode_setPrevious(LLMNode this, LLMNode previous) {
-        this->previous = previous;
-    }
+	void LLMNode_setPrevious(LLMNode this, LLMNode previous) {
+		if(this == NULL) return;
+		this->previous = previous;
+	}
 
-    void LLMNode_setValue(LLMNode this, void* value) {
-        this->value = value;
-    }
+	void LLMNode_setKey(LLMNode this, void* key) {
+		if(this == NULL) return;
+		this->key = key;
+	}
 
-    LLMNode LLMNode_getNext(LLMNode this) {
-        return this->next;
-    }
+	void LLMNode_setValue(LLMNode this, void* value) {
+		if(this == NULL) return;
+		this->value = value;
+	}
 
-    LLMNode LLMNode_getPrevious(LLMNode this) {
-        return this->previous;
-    }
+	LLMNode LLMNode_getNext(LLMNode this) {
+		if(this == NULL) return NULL;
+		return this->next;
+	}
 
-    void* LLMNode_getValue(LLMNode this) {
-        return this->value;
-    }
+	LLMNode LLMNode_getPrevious(LLMNode this) {
+		if(this == NULL) return NULL;
+		return this->previous;
+	}
 
+	void*  LLMNode_getKey(LLMNode this) {
+		if(this == NULL) return NULL;
+		return this->key;
+	}
 
-    LinkedListMap new_LinkedListMap() {
-        LinkedListMap result = (LinkedListMap) malloc(sizeof(struct linkedlistmap_t));
-        result->root = NULL;
-        return result;
-    }
-
-    void LinkedListMap_setRoot(LinkedListMap list, LLMNode node) {
-        list->root = node;
-    }
-
-    void LinkedListMap_search(LLMNode root, void* value, LLMNode *prev, LLMNode *atual) {
-        *prev = root;
-        *atual = LLMNode_getNext(root);
-        while ((*atual) != NULL && LLMNode_getValue(*atual) != value) {
-            *prev = *atual;
-            *atual = LLMNode_getNext(*atual);
-        }
-        if ((*atual) != NULL && LLMNode_getValue(*atual) != value)
-            *atual = NULL; //In case we dont find the value
-    }
+	void* LLMNode_getValue(LLMNode this) {
+		if(this == NULL) return NULL;
+		return this->value;
+	}
 
 
-    void* LinkedListMap_find(LinkedListMap list, void* key) {
-        LLMNode prev = new_LLMNode();
-        LLMNode atual = new_LLMNode();
+	LinkedListMap new_LinkedListMap() {
+		LinkedListMap result = (LinkedListMap) malloc(sizeof(struct linkedlistmap_t));
+		result->root = NULL;
+		return result;
+	}
 
-        LinkedListMap_search(list->root,key,*prev,*atual);
+	void LinkedListMap_setRoot(LinkedListMap list, LLMNode node) {
+		if(list == NULL) return;
+		list->root = node;
+	}
 
-        return LLMNode_getValue(atual);
-    }
+	LLMNode LinkedListMap_getRoot(LinkedListMap list) {
+		if(list == NULL) return NULL;
+		return list->root;
+	}
 
-    void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
+	// !! Defined for a <int> key
+	void* LinkedListMap_find(LinkedListMap list, void* key) {
+		int keyValue = *( (int*) key );
+		for(LLMNode current = LinkedListMap_getRoot(list); 
+				current != NULL;
+				current = LLMNode_getNext(current) 
+		) {
+			int* currentKey = (int*) LLMNode_getKey(current);
 
-    }
+			if(*currentKey == keyValue)
+				return currentKey;
+		}
+
+		return NULL;
+	}
+
+	void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
+
+	}
 
