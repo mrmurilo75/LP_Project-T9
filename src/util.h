@@ -243,7 +243,7 @@
 	void LinkedListMap_sort(LinkedListMap list);
 		// list: the LinkedList to be organized by key
 
-        void* LinkedListMap_find(LinkedListMap list, void* key);		// UPDATED
+        void* LinkedListMap_find(LinkedListMap list, void* key);
 		// list: the list in which to search
 		// key: the key to find
 		// returns a void* to the value mapped by this key
@@ -257,6 +257,18 @@
         void* LinkedListMap_remove(LinkedListMap list, void* key);		// TO/DO (if necessary)
 		// list: the list in which to search
 		// key: the key to be removed
+
+        LLMNode LinkedListMap_getNodeByValue(LinkedListMap list, void* value);		// TODO NEW
+		// list: the list in which to search
+		// value: the value to find
+		// returns a LLMNode that contains the value mapping
+		// 	or NULL if theres no such mapping
+
+	void LinkedListMap_updateNode(LinkedListMap list, LLMNode node);		// TODO NEW
+		// list: the list in which to update
+		// node: the node to be updated
+		// the node should be updated by moving concating getNext/getPrevious
+		// 	and if necessary reset the list root
 
 #endif // LINKEDLISTMAP_TYPE_INCLUDED		--
 
