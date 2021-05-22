@@ -6,6 +6,16 @@
 
 #define byte char
 
+#ifndef INTEGER_TYPE_INCLUDED
+#define INTEGER_TYPE_INCLUDED
+	typedef int* Integer;
+
+	Integer new_Integer();
+		// new Integer with undefined value
+
+#endif // INTEGER_TYPE_INCLUDED
+
+
 #ifndef STRING_TYPE_INCLUDED
 #define STRING_TYPE_INCLUDED
 
@@ -263,8 +273,8 @@
 
 	typedef dictionary_t* Dictionary;
 
-	Dictionary new_Dictionary();		// TODO
-		//create a new empty CountDicitionary
+	Dictionary new_Dictionary();
+		//create a new empty Dicitionary
 
 	LinkedListMap Dictionary_find(Dictionary dict, StringT9 value);		// TODO
 		// dict: the dictionary to search in
