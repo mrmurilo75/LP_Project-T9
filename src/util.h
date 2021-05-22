@@ -235,3 +235,23 @@
 
 #endif // LINKEDLISTMAP_TYPE_INCLUDED		--
 
+#ifndef DICTIONARY_H_INCLUDED
+#define DICTIONARY_H_INCLUDED
+
+	typedef void* CountDictionary;
+
+	void* new_CountDictionary();
+		//create a new empty CountDicitionary
+
+	void* CountDictionary_find(CountDictionary dict, void* value);
+		// dict: the dictionary to search in
+		// value: the value to be found
+		// returns a pointer to the count which this value is mapped to
+		// or NULL if there is no such mapping
+
+	void CountDictionary_insert(CountDictionary dict, void* value);
+		// dict: the dictionary to insert in
+		// value: the value to be inserted (if there is no mapping, or upcount otherwise)
+
+#endif	// DICTIONARY_H_INCLUDED
+
