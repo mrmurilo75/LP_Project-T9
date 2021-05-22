@@ -240,7 +240,7 @@
 	LLMNode LinkedListMap_getRoot(LinkedListMap list);
 		//list : the LinkedList to get the root from
 
-	void LinkedListMap_sort(LinkedListMap list);
+	void LinkedListMap_sort(LinkedListMap list);		// TO/DO (if necessary)
 		// list: the LinkedList to be organized by key
 
         void* LinkedListMap_find(LinkedListMap list, void* key);
