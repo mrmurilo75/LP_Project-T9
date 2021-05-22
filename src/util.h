@@ -27,8 +27,13 @@
 
 	int String_equals(String a, String b);
 		// return non-zero int if the value of the Strings *are* the same
+	
+	void* String_toStringT9(String value);		// TODO NEW
+		// value: the string to be transforme into t9
+		// returns the corresponding StringT9
+		// 	or NULL if theres is no equivalent (ex. if contains special characters)
 
-#endif // STRING_TYPE_INCLUDED		--DONE
+#endif // STRING_TYPE_INCLUDED		--
 
 
 #ifndef STRING_T9_TYPE_INCLUDED
@@ -53,7 +58,12 @@
 	int StringT9_equals(StringT9 a, StringT9 b);
 		//returns non-zero if the value Strings *are* the same
 
-#endif // STRING_T9_TYPE_INCLUDED		--DONE
+	int StringT9_getIntHead(StringT9 a);		// TODO NEW
+		// a: the string to get the head from
+		// return an int correspondig to the first 5 elements
+		//	or 0 if it has no head (length <= 5)
+
+#endif // STRING_T9_TYPE_INCLUDED		--
 
 
 #ifndef BSTREEMAP_TYPE_INCLUDED
@@ -238,20 +248,34 @@
 #ifndef DICTIONARY_H_INCLUDED
 #define DICTIONARY_H_INCLUDED
 
-	typedef void* CountDictionary;
+	struct countdictionary_t {
+		HashMap bigWords;	// HashMap of StringT9[head] -> (BSTreeMap of StringT9 -> (LinkedListMap of Integer -> String) )
+				// :maps the head of a StringT9 (the first 5 elements) to a BSTreeMap that contains the LinkedListMap of correspondig the words and their counts
 
-	void* new_CountDictionary();
+		// for the ones that doesnt have heads:
+		BSTreeMap smallWords;	// BSTreeMap of StringT9 -> (LinkedListMap of Integer -> String)
+				// :maps a StringT9 into the linked list that countains the count mapped to the correspondig string
+	}
+
+	typedef countdictionary_t* CountDictionary;
+
+	void* new_CountDictionary();		// TODO
 		//create a new empty CountDicitionary
 
-	void* CountDictionary_find(CountDictionary dict, void* value);
+	int* CountDictionary_find(CountDictionary dict, void* string);		// TODO
 		// dict: the dictionary to search in
-		// value: the value to be found
+		// string: the string to be found
 		// returns a pointer to the count which this value is mapped to
 		// or NULL if there is no such mapping
 
-	void CountDictionary_insert(CountDictionary dict, void* value);
+	void* CountDictionary_findLLM(CountDictionary dict, void* stringT9);		// TODO
+		// dict: the dictionary to search in
+		// stringT9: the stringT9 to be found
+		// returns the LinkedListMap corresponding to this stringT9
+
+	void CountDictionary_insert(CountDictionary dict, void* string);		// TODO
 		// dict: the dictionary to insert in
-		// value: the value to be inserted (if there is no mapping, or upcount otherwise)
+		// string: the string to be inserted (if there is no mapping, or upcount otherwise)
 
 #endif	// DICTIONARY_H_INCLUDED
 
