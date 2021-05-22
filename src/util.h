@@ -253,34 +253,27 @@
 #ifndef DICTIONARY_H_INCLUDED
 #define DICTIONARY_H_INCLUDED
 
-	struct countdictionary_t {
-		HashMap bigWords;	// HashMap of StringT9[head] -> (BSTreeMap of StringT9 -> (LinkedListMap of Integer -> String) )
-				// :maps the head of a StringT9 (the first 5 elements) to a BSTreeMap that contains the LinkedListMap of correspondig the words and their counts
+	struct dictionary_t {
+		HashMap bigWords;	// HashMap of StringT9[head] -> (BSTreeMap of StringT9 -> (LinkedListMap of words) )
+				// :maps the head of a StringT9 (the first 5 elements) to a BSTreeMap that contains the LinkedListMap of correspondig the words
 
-		// for the ones that doesnt have heads:
-		BSTreeMap smallWords;	// BSTreeMap of StringT9 -> (LinkedListMap of Integer -> String)
-				// :maps a StringT9 into the linked list that countains the count mapped to the correspondig string
+		BSTreeMap smallWords;	// BSTreeMap of StringT9 -> (LinkedListMap of words)
+				// skips the hashmap
 	}
 
-	typedef countdictionary_t* CountDictionary;
+	typedef dictionary_t* Dictionary;
 
-	void* new_CountDictionary();		// TODO
+	Dictionary new_Dictionary();		// TODO
 		//create a new empty CountDicitionary
 
-	int* CountDictionary_find(CountDictionary dict, void* string);		// TODO
+	LinkedListMap Dictionary_find(Dictionary dict, StringT9 value);		// TODO
 		// dict: the dictionary to search in
-		// string: the string to be found
-		// returns a pointer to the count which this value is mapped to
-		// or NULL if there is no such mapping
-
-	void* CountDictionary_findLLM(CountDictionary dict, void* stringT9);		// TODO
-		// dict: the dictionary to search in
-		// stringT9: the stringT9 to be found
+		// value: the stringT9 to be found
 		// returns the LinkedListMap corresponding to this stringT9
 
-	void CountDictionary_insert(CountDictionary dict, void* string);		// TODO
+	void Dictionary_insert(Dictionary dict, String value);		// TODO
 		// dict: the dictionary to insert in
-		// string: the string to be inserted (if there is no mapping, or upcount otherwise)
+		// value: the string to be inserted (if there is no mapping, or upcount otherwise)
 
 #endif	// DICTIONARY_H_INCLUDED
 
