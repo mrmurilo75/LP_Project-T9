@@ -13,13 +13,23 @@ LinkedListMap Dictionary_find(Dictionary dict, StringT9 value) {
 	if(dict == NULL || value == NULL)
 		return;
 
-	if(value->length <= 5)
-		return (LinkedListMap) BSTreeMap_find(smallWords, value);
+	StringT9 valueT9 = String_toStringT9(value);
+	if(valueT9 == NULL) return;
 
-	int position = StringT9_getIntHead(value);
-	BSTreeMap bstm = HashMap(bigWords, &position);
+	BSTreeMap bstm;
 
-	return (LinkedListMap) BSTreeMap_find(bstm, value);
+	if(value->length > 5) {
+		int position = StringT9_getIntHead(valueT9);
+		bstm = HashMap_get(bigWords, &position);
+
+		if(bstm == NULL) {
+			bstm = new_BSTreeMap();
+			HashMap_insert(bigWords, &position, bstm);
+		}
+	} else 
+		bstm = smallWords;
+
+	return (LinkedListMap) BSTreeMap_find(bstm, valueT9);
 }
 
 void Dictionary_insert(Dictionary dict, String value) {
@@ -30,28 +40,42 @@ void Dictionary_insert(Dictionary dict, String value) {
 	if(valueT9 == NULL) return;
 
 	LinkedListMap llm;
+	BSTreeMap bstm;
 
-	if(value->length <= 5) {
-		llm = (LinkedListMap) BSTreeMap_find(smallWords, valueT9);
+	if(value->length > 5) {
+		int position = StringT9_getIntHead(valueT9);
+		bstm = HashMap_get(bigWords, &position);
 
-		if(llm != NULL) {
-			LinkedListMap_getNodeByValue(llm, value);
-
-
-		if(llm == NULL) {
-			llm = new_LinkedListMap();
-			Integer newCount = new_Integer();
-			*newCount = 1;
-
-			LinkedListMap_add(llm, newCount, value);
-			BSTreeMap_insert(smallWords, valueT9, llm);
+		if(bstm == NULL) {
+			bstm = new_BSTreeMap();
+			HashMap_insert(bigWords, &position, bstm);
 		}
+	} else 
+		bstm = smallWords;
+
+	llm = (LinkedListMap) BSTreeMap_find(bstm, valueT9);
+	LLMNode node;
+
+	if(llm == NULL) {
+		llm = new_LinkedListMap();
+		BSTreeMap_insert(bstm, valueT9, llm);
+		node = NULL;
+	} else 
+		node = LinkedListMap_getNodeByValue(llm, value);
+
+	if(node == NULL) {
+		Integer newCount = new_Integer();
+		*newCount = 1;
+
+		LinkedListMap_add(llm, newCount, value);
 
 	} else {
-		int position = StringT9_getIntHead(valueT9);
-		BSTreeMap bstm = HashMap(bigWords, &position);
-		llm = (LinkedListMap) BSTreeMap_find(bstm, value);
+		Integer count = (Integer) LLMNode_getKey(node);
+
+		(*count)++;
+		LinkedListMap_updateNode(llm, node);
 	}
 
+	return;
 }
 
