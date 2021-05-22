@@ -1,7 +1,7 @@
 #include "util.h"
 
 
-void* new_Dictionary() {
+Dictionary new_Dictionary() {
 	Dictionary result = (Dictionary) malloc(sizeof(struct dictionary_t));
 	result->bigWords = new_HashMap();
 	result->smallWords = new_BSTreeMap();
@@ -9,12 +9,17 @@ void* new_Dictionary() {
 	return result;
 }
 
-int* Dictionary_find(Dictionary dict, String value) {
-}
+LinkedListMap Dictionary_find(Dictionary dict, StringT9 value) {
+	if(dict == NULL || value == NULL)
+		return;
 
-void* Dictionary_find(Dictionary dict, StringT9 value) {
 	if(value->length <= 5)
-		LinkedListMap BSTreeMap_find(smallWords, 
+		return (LinkedListMap) BSTreeMap_find(smallWords, value);
+
+	int position = StringT9_getIntHead(value);
+	BSTreeMap bstm = HashMap(bigWords, &position);
+
+	return (LinkedListMap) BSTreeMap_find(bstm, value);
 }
 
 void Dictionary_insert(Dictionary dict, String value) {
@@ -22,26 +27,31 @@ void Dictionary_insert(Dictionary dict, String value) {
 		return;
 
 	StringT9 valueT9 = String_toStringT9(value);
+	if(valueT9 == NULL) return;
 
-	LinkedListMap llm = Dictionary_findLLM(dict, valueT9);
+	LinkedListMap llm;
 
-	if(llm == NULL){
-		
-		return;
+	if(value->length <= 5) {
+		llm = (LinkedListMap) BSTreeMap_find(smallWords, valueT9);
+
+		if(llm != NULL) {
+			LinkedListMap_getNodeByValue(llm, value);
+
+
+		if(llm == NULL) {
+			llm = new_LinkedListMap();
+			Integer newCount = new_Integer();
+			*newCount = 1;
+
+			LinkedListMap_add(llm, newCount, value);
+			BSTreeMap_insert(smallWords, valueT9, llm);
+		}
+
+	} else {
+		int position = StringT9_getIntHead(valueT9);
+		BSTreeMap bstm = HashMap(bigWords, &position);
+		llm = (LinkedListMap) BSTreeMap_find(bstm, value);
 	}
-
-	
-	if(valueT9 == NULL)
-		return;
-
-	if(value->length <= 5) {	// is smallWord
-		BSTreeMap_insert(smallWord, 1, new
-
-		int vHead = StringT9_getIntHead(valueT9);
-
-
-
-
 
 }
 
