@@ -38,7 +38,7 @@
 	int String_equals(String a, String b);
 		// return non-zero int if the value of the Strings *are* the same
 	
-	void* String_toStringT9(String value);		// TODO NEW
+	void* String_toStringT9(String value);		//
 		// value: the string to be transforme into t9
 		// returns the corresponding StringT9
 		// 	or NULL if theres is no equivalent (ex. if contains special characters)
@@ -68,7 +68,7 @@
 	int StringT9_equals(StringT9 a, StringT9 b);
 		//returns non-zero if the value Strings *are* the same
 
-	int StringT9_getIntHead(StringT9 a);		// TODO NEW
+	int StringT9_getIntHead(StringT9 a);		//
 		// a: the string to get the head from
 		// return an int correspondig to the first 5 elements
 		//	or 0 if it has no head (length <= 5)
