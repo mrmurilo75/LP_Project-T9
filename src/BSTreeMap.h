@@ -83,9 +83,9 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 		// returns NULL if no new node was created
 		// otherwise returns the node created (or parent) for balacing
 
-/*private*/ BSTMNode BSTMNode_rotateRight(BSTMNode node);	// TODO
+/*private*/ BSTMNode BSTMNode_rotateRight(BSTMNode node);
 
-/*private*/ BSTMNode BSTMNode_rotateLeft(BSTMNode node);		// TODO
+/*private*/ BSTMNode BSTMNode_rotateLeft(BSTMNode node);
 
 void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 	if(key == NULL) return;
@@ -143,40 +143,20 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 	return NULL; // should never reach
 }
 
-/*
-	Tree STinsertR(Tree h, Key v)
-	{
-		if (h == NULL) {
-			Tree nt = new Tree; //malloc(sizeof *x);
-			nt->root->chave = v;
-			nt->left = nt->right = NULL;
-			return nt;
-		}
-		if (v < h->chave) {
-			h->l = STinsertR(h->l, v);
-			h = rotR(h);
-		}
-		else {
-			h->r = STinsertR(h->r, v);
-			h = rotL(h);
-		}
-		return h;
-	}
+/*private*/ BSTMNode BSTMNode_rotateRight(BSTMNode node) {
+    BSTMNode temp = BSTMNode_getLeftNode(node);
+    BSTMNode_setLeftNode(node, BSTMNode_getRightNode(temp));
+    BSTMNode_setRightNode(temp, node);
+    return temp;
+}
 
-	link rotR(link h)
-	{
-		link x = h->l;
-		h->l = x->r;
-		x->r = h;
-		return x;
-	}
 
-	link rotL(link h)
-	{
-		link x = h->r;
-		h->r = x->l;
-		x->l = h;
-		return x;
-	}
- */
+/*private*/ BSTMNode BSTMNode_rotateLeft(BSTMNode node) {
+    BSTMNode temp = BSTMNode_getRightNode(node);
+    BSTMNode_setRightNode(node, BSTMNode_getLeftNode(temp));
+    BSTMNode_setLeftNode(temp, node);
+    return temp;
+}
+
+
 
