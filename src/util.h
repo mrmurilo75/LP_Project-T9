@@ -20,14 +20,19 @@
 #ifndef STRING_TYPE_INCLUDED
 #define STRING_TYPE_INCLUDED
 
-	typedef struct string_t* String;
+	typedef struct string_t* String;		//TODO UPDATE
 
 	struct string_t {
-		int length;
-		int* value; // char[] equivalent
+		int length; // not accounting for \0 and after
+		char* value;
+		int size; // show the actual size of the buffer		// NEW
 	};
 
-	String new_String(int length, int* value);
+	String new_String(int length, char* value);
+		// create a new String object
+		// 	(buffer is set same as length)
+
+	String new_StringWithBuffer(int length, char* value, int size);		// TODO NEW
 		// create a new String object
 
 	int String_compare(String a, String b);
@@ -44,12 +49,22 @@
 		// returns the corresponding StringT9
 		// 	or NULL if theres is no equivalent (ex. if contains special characters)
 
-	String String_concat(String start, String end);		// TODO NEW
+	String String_append(String start, String end);		// TODO NEW
 		// start: the string to be at the start
 		// end: the string to be at the end
-		// returns a new string with the concateneation result
-		// 	or NULL if if fails
-		// (add lenghts then use strcpy, strcat)
+		// tries to put the value of 'end' in start 
+		// if it fits returns 'start' and 'start' is updated
+		// otherwise returns a new string and start is not changed
+		// (end is never changed)
+
+	void String_del(String str, int i);		// TODO NEW
+		// str: String to delete from
+		// i: number of characters to be deleted
+
+	String String_trim(String str);
+		// str: string to be trimmed
+		// reduce and move buffer to equal length
+		// changing 'str' and returning it
 
 #endif // STRING_TYPE_INCLUDED		--
 
@@ -233,12 +248,14 @@
 	void* LLMNode_getKey(LLMNode this);
 		// this: node to set the value
 
-	typedef struct linkedlistmap_t* LinkedListMap;
+	typedef struct linkedlistmap_t* LinkedListMap;		// TODO NEW 
 
 	struct linkedlistmap_t {
 		LLMNode root;
-	};
 
+		LLMNode current;		// NEW
+	};
+// TODO UPDATE -------------------------------------------------
 	LinkedListMap new_LinkedListMap();
 
 	void LinkedListMap_setRoot(LinkedListMap list, LLMNode node);
@@ -277,6 +294,10 @@
 		// node: the node to be updated
 		// the node should be updated by moving concating getNext/getPrevious
 		// 	and if necessary reset the list root
+
+	void* LinkedListMap_next(LinkedListMap list);		// TODO NEW
+		// list: the list from which to get the next value
+		// returns the value of the next node (cycling if it reaches the end)
 
 #endif // LINKEDLISTMAP_TYPE_INCLUDED		--
 

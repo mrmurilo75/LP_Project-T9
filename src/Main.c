@@ -1,6 +1,5 @@
 #include "util.h"
 #include "Dictionary.h"
-#include "String.h"
 #include <gtk/gtk.h>
 #include <ctype.h>
 #include <string.h>
@@ -38,15 +37,28 @@ String fullTxtStr,
 
 Dictionary dictionary;
 
+LinkedListMap llmCycle;
+
+byte isCyling;
+
 void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
 
+void initialize() {
+	String fname = new_String( 18, (int *)"lusiadas_clean.txt");
+	FILE* dictFile = fopen((char*)fname->value, "r");
+	dictionary = Dictionary_fillFromFile(dictFile);
+
+	fullTxtStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 256), 256 );
+	curWordStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 64), 64 );
+
+	isCycling = 0; // false
+	llmCycle = NULL;
+}
 
 int main(int argc, char* argv[]) {
 
-	String fname = new_String( 18, "lusiadas_clean.txt");
-	FILE* dictFile = fopen((char*)fname->value, "r");
-	dictionary = Dictionary_fillFromFile(dictFile);
+	initialize();
 
 	gtk_init(&argc, & argv);
 
@@ -91,9 +103,13 @@ int main(int argc, char* argv[]) {
 
 void numpad_clicked(int i);
 
-void asterisk_clicked();
+void cycle();
 
-void hashtag_clicked();
+void send();
+
+void clear();
+
+void del();
 
 void buttonClick(GtkWidget *widget, gpointer data) {
 	const char *label = gtk_button_get_label(data);
@@ -110,21 +126,89 @@ void buttonClick(GtkWidget *widget, gpointer data) {
 
 	g_print("button %c\n", val);
 
-	if(val >= '0' && val <= '9')
-		numpad_clicked(i);
-	else if (val == '*')
-		asterisk_clicked();
-	else
-		hashtag_clicked();
+	switch(val) {
+		case '0':
+			cycle();
+			return;
+		case '1':
+			send();
+			return;
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			numpad_clicked(i);
+			return;
+		case '*':
+			clear();
+			return;
+		case '#':
+			del();
+			return;
+	}
 
 	return;
 }
 
 void numpad_clicked(int i) {
-	
+	if(isCycling)
+		send();
+
+	char *val = "0";
+	val[0] += i;
+	String end = new_String(1, val);
+	curWordStr = String_append(curWordStr, end);
+
+	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	return;
 }
-void asterisk_clicked() {}
-void hashtag_clicked() {}
+
+void cycle() {
+	if(!isCycling) {
+		isCycling = 1; // true
+
+		llmCycle = Dictionary_find(dictionary, String_toStringT9(curWordStr));
+	}
+
+	curWordStr = (String) LinkedListMap_next(llmCycle);
+
+	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	return;
+}
+
+void send() {
+	fullTxtStr = String_append(fullTxtStr, String_trim(curWordStr));
 
 
+	gtk_set_label( (GtkLabel *) fullTxt, fullTxtStr->value );
+
+	clear();
+
+	return;
+}
+
+void clear() {
+	isCycling = 0; // false
+
+	curWordStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 64), 64 );
+
+	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	return;
+}
+
+void del() {
+	if(isCycling) {
+		clear();
+		return;
+	}
+
+	String_del(curWordStr, 1);
+
+	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	return;
+}
 
