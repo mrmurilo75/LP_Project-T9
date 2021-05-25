@@ -44,6 +44,13 @@
 		// returns the corresponding StringT9
 		// 	or NULL if theres is no equivalent (ex. if contains special characters)
 
+	String String_concat(String start, String end);		// TODO NEW
+		// start: the string to be at the start
+		// end: the string to be at the end
+		// returns a new string with the concateneation result
+		// 	or NULL if if fails
+		// (add lenghts then use strcpy, strcat)
+
 #endif // STRING_TYPE_INCLUDED		--
 
 

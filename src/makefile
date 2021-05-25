@@ -4,7 +4,7 @@ ProjectT9: bin Main.o BSTreeMap.o LinkedListMap.o String.o StringT9.o
 	gcc Main.c BSTreeMap.h Dictionary.h LinkedListMap.h String.h StringT9.h -o ../bin/ProjectT9 `pkg-config --cflags --libs gtk+-3.0`
 
 Main.o: bin
-	gcc -Wall -B ../bin -o ../bin/Main.o Main.c `pkg-config --cflags --libs gtk+-3.0`
+	gcc -Wall -B ../bin -o ../bin/Main.o Main.c Dictionary.h String.h `pkg-config --cflags --libs gtk+-3.0`
 
 BSTreeMap.o: bin
 	gcc  -Wall -B ../bin -o ../bin/BSTreeMap.o BSTreeMap.h
