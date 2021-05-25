@@ -1,4 +1,9 @@
 #include "util.h"
+#include "Integer.h"
+#include "String.h"
+#include "LinkedListMap.h"
+#include "BSTreeMap.h"
+#include "HashMap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
