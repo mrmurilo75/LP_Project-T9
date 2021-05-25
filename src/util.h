@@ -3,6 +3,7 @@
  */
 
 #include <stddef.h>
+#include <stdio.h>
 
 #define byte char
 
@@ -281,9 +282,9 @@
 
 		BSTreeMap smallWords;	// BSTreeMap of StringT9 -> (LinkedListMap of words)
 				// skips the hashmap
-	}
+	};
 
-	typedef dictionary_t* Dictionary;
+	typedef struct dictionary_t* Dictionary;
 
 	Dictionary new_Dictionary();
 		//create a new empty Dicitionary
@@ -297,5 +298,9 @@
 		// dict: the dictionary to insert in
 		// value: the string to be inserted (if there is no mapping, or upcount otherwise)
 
+	Dictionary Dictionary_fillFromFile(FILE* file);		// NEW
+		// file: text file to read from
+		// return a filled new Dictionary
+		// 	or NULL if file is NULL
 #endif	// DICTIONARY_H_INCLUDED		--DONE
 
