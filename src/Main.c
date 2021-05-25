@@ -39,7 +39,7 @@ Dictionary dictionary;
 
 LinkedListMap llmCycle;
 
-byte isCyling;
+byte isCycling;
 
 void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
