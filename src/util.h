@@ -183,24 +183,24 @@
 
 	typedef void* HashMap; // implemented as an array (! use calloc)
 
-	HashMap new_HashMap();		// TODO
+	HashMap new_HashMap();
 		// create an empty HashMap
 
-	void* HashMap_get(HashMap map, void* key);		// TODO
+	void* HashMap_get(HashMap map, void* key);
 		// map: the map in which to search
 		// key: the key to find 
 		// returns a void* to the value mapped to this key
 
-	void HashMap_insert(HashMap map, void* key, void* value);		// TODO
+	void HashMap_insert(HashMap map, void* key, void* value);
 		// map: the map in which to insert
 		// key: the key to insert
 		// value: the value to be mapped to the respect key
 
-	void HashMap_remove(HashMap map, void* key);		// TODO
+	void HashMap_remove(HashMap map, void* key);		// TO/DO (if necessary)
 		// map: the map in which to search
 		// key: the key of value to remove the value
 
-#endif // HASHMAP_TYPE_INCLUDED		--TODO
+#endif // HASHMAP_TYPE_INCLUDED		--DONE
 
 
 #ifndef LINKEDLISTMAP_TYPE_INCLUDED
