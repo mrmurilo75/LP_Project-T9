@@ -20,19 +20,19 @@
 #ifndef STRING_TYPE_INCLUDED
 #define STRING_TYPE_INCLUDED
 
-	typedef struct string_t* String;		//TODO UPDATE
+	typedef struct string_t* String;
 
 	struct string_t {
 		int length; // not accounting for \0 and after
 		char* value;
-		int size; // show the actual size of the buffer		// NEW
+		int size; // show the actual size of the buffer
 	};
 
 	String new_String(int length, char* value);
 		// create a new String object
 		// 	(buffer is set same as length)
 
-	String new_StringWithBuffer(int length, char* value, int size);		// TODO NEW
+	String new_StringWithBuffer(int length, char* value, int size);
 		// create a new String object
 
 	int String_compare(String a, String b);
