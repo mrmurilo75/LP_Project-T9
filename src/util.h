@@ -248,14 +248,14 @@
 	void* LLMNode_getKey(LLMNode this);
 		// this: node to set the value
 
-	typedef struct linkedlistmap_t* LinkedListMap;		// TODO NEW 
+	typedef struct linkedlistmap_t* LinkedListMap;
 
 	struct linkedlistmap_t {
 		LLMNode root;
 
-		LLMNode current;		// NEW
+		LLMNode current;
 	};
-// TODO UPDATE -------------------------------------------------
+
 	LinkedListMap new_LinkedListMap();
 
 	void LinkedListMap_setRoot(LinkedListMap list, LLMNode node);
@@ -274,7 +274,7 @@
 		// returns a void* to the value mapped by this key
 		// or NULL if theres no such mapping
 
-        void LinkedListMap_add(LinkedListMap list, void* key, void* value);		// TODO
+        void LinkedListMap_add(LinkedListMap list, void* key, void* value);
 		// list: the list in which to add
 		// key: the key to which the value will be mapped
 		// value: the value of the mapping
@@ -283,19 +283,23 @@
 		// list: the list in which to search
 		// key: the key to be removed
 
-        LLMNode LinkedListMap_getNodeByValue(LinkedListMap list, void* value);		// TODO NEW
+        LLMNode LinkedListMap_getNodeByValue(LinkedListMap list, void* value);
 		// list: the list in which to search
 		// value: the value to find
 		// returns a LLMNode that contains the value mapping
 		// 	or NULL if theres no such mapping
 
-	void LinkedListMap_updateNode(LinkedListMap list, LLMNode node);		// TODO NEW
+	void LinkedListMap_updateNode(LinkedListMap list, LLMNode node);
 		// list: the list in which to update
 		// node: the node to be updated
 		// the node should be updated by moving concating getNext/getPrevious
 		// 	and if necessary reset the list root
 
-	void* LinkedListMap_next(LinkedListMap list);		// TODO NEW
+	void* LinkedListMap_current(LinkedListMap list);
+		// list: the list from which to get the current pointing value
+		// returns the value of the current pointing node (cycling if it reaches the end)
+
+	void* LinkedListMap_next(LinkedListMap list);
 		// list: the list from which to get the next value
 		// returns the value of the next node (cycling if it reaches the end)
 
