@@ -12,6 +12,9 @@ BSTreeMap.o: bin
 Dictionary.o: String.o
 	gcc  -Wall -B ../bin -o ../bin/Dictionary.o Dictionary.h String.h
 
+HashMap.o: bin
+	gcc  -Wall -B ../bin -o ../bin/HashMap.o HashMap.h
+
 Integer.o: bin
 	gcc  -Wall -B ../bin -o ../bin/Integer.o Integer.h
 
