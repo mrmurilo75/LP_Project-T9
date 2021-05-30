@@ -89,6 +89,16 @@ void* String_toStringT9(String value) {
 			case 'x': new_value[i] = '9';   break;
 			case 'y': new_value[i] = '9';   break;
 			case 'z': new_value[i] = '9';   break;
+            case '1': new_value[i] = '1';   break;
+            case '2': new_value[i] = '2';   break;
+            case '3': new_value[i] = '3';   break;
+            case '4': new_value[i] = '4';   break;
+            case '5': new_value[i] = '5';   break;
+            case '6': new_value[i] = '6';   break;
+            case '7': new_value[i] = '7';   break;
+            case '8': new_value[i] = '8';   break;
+            case '9': new_value[i] = '9';   break;
+            case '0': new_value[i] = '0';   break;
 			default: new_value[i] = '.';	break;
 		}
 	}

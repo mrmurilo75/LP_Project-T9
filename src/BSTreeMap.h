@@ -13,6 +13,7 @@ BSTMNode new_BSTMNode(void* key, void* value) {
 }
 
 void* BSTMNode_getRightNode(BSTMNode node) {
+    if(node->rightNode == NULL) return NULL;
 	return node->rightNode;
 }
 
@@ -21,6 +22,7 @@ void BSTMNode_setRightNode(BSTMNode node, BSTMNode right) {
 }
 
 void* BSTMNode_getLeftNode(BSTMNode node) {
+    if(node->leftNode == NULL) return NULL;
 	return node->leftNode;
 }
 
@@ -29,6 +31,7 @@ void BSTMNode_setLeftNode(BSTMNode node, BSTMNode left) {
 }
 
 void* BSTMNode_getValue(BSTMNode node) {
+    if(node->value == NULL) return NULL;
 	return node->value;
 }
 
@@ -37,6 +40,7 @@ void BSTMNode_setValue(BSTMNode node, void* value) {
 }
 
 void* BSTMNode_getKey(BSTMNode node){
+    if(node->key == NULL) return NULL;
 	return node->key;
 }
 
