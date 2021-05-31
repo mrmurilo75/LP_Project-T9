@@ -116,13 +116,30 @@ void* String_toStringT9(String value) {
 }
 
 String String_append(String start, String end) {
-	
+	if(start == NULL) {
+		char *new_value = malloc(sizeof(char) * (end->length + 1));
+		strcpy(new_value, end->value);
+		return new_String(end->length, new_value);
+	}
+
+	if(end == NULL) 
+		return start;
+
+	if( start->size > (start->length + end->length) ) {
+		strcpy( &(start->value[start->length]), end->value );
+		return start;
+	}
+
+	char *new_value = malloc(sizeof(char) * (start->length + end->length + 1));
+	strcpy(new_value, start->value);
+	strcpy( &(new_value[start->length]), end->value);
+	return new_String(start->length + end->length, new_value);
 }
 
 void String_del(String str, int i) {
+	str->value[ str->length - 1 - i ] = '\0';
+	str->length = str->length - i;
 
+	return;
 }
 
-String String_trim(String str) {
-
-}

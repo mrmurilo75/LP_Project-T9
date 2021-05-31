@@ -49,7 +49,7 @@
 		// returns the corresponding StringT9
 		// 	or NULL if theres is no equivalent (ex. if contains special characters)
 
-	String String_append(String start, String end);		// TODO
+	String String_append(String start, String end);
 		// start: the string to be at the start
 		// end: the string to be at the end
 		// tries to put the value of 'end' in start 
@@ -57,14 +57,9 @@
 		// otherwise returns a new string and start is not changed
 		// (end is never changed)
 
-	void String_del(String str, int i);		// TODO
+	void String_del(String str, int i);
 		// str: String to delete from
 		// i: number of characters to be deleted
-
-	String String_trim(String str);		// TODO
-		// str: string to be trimmed
-		// reduce and move buffer to equal length
-		// changing 'str' and returning it
 
 #endif // STRING_TYPE_INCLUDED		--
 
