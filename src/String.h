@@ -115,3 +115,14 @@ void* String_toStringT9(String value) {
 	return nova;
 }
 
+String String_append(String start, String end) {
+	
+}
+
+void String_del(String str, int i) {
+
+}
+
+String String_trim(String str) {
+
+}
