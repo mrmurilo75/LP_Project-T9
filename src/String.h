@@ -2,6 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "util.h"
+#include "StringT9.h"
 
 String new_String(int length, char* value) {
 // !! possible bug by not cpying arguments into heap (malloc-ing)
