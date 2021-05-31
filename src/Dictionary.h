@@ -103,8 +103,8 @@ Dictionary Dictionary_fillFromFile(FILE* file) {
 	if(file == NULL) return NULL;
 
 	int i,
-		c,
-		*word = malloc(sizeof(int) * 64);
+		c;
+	char *word = malloc(sizeof(char) * 64);
 
 	while(!isalnum( c = fgetc(file) ));
 
