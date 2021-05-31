@@ -45,8 +45,9 @@ void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
 
 void initialize() {
+//	String fname = new_String( 18, "lus_test2.txt");
 	String fname = new_String( 18, "lus_test.txt");
-	//String fname = new_String( 18, "lusiadas_clean.txt");
+//	String fname = new_String( 18, "lusiadas_clean.txt");
 	FILE* dictFile = fopen(fname->value, "r");
 	if(dictFile == NULL)
 		fprintf(stderr, "Failed to open dictionary file\n");
@@ -189,6 +190,7 @@ void numpad_clicked(int i) {
 
 void cycle() {
 	printf("in cycle()\n");
+		printf("here");
 
 	StringT9 curWordStrT9;
 
@@ -197,7 +199,7 @@ void cycle() {
 
 		curWordStrT9 = String_toStringT9(curWordStr);
 		llmCycle = Dictionary_find(dictionary, curWordStrT9);
-		//printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
+		printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
 	}
 
 	if(llmCycle == NULL) {
