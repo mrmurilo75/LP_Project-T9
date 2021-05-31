@@ -80,8 +80,8 @@ int main(int argc, char* argv[]) {
 
 	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
 
-	fullTxt = gtk_label_new((char*) "full txt place holder");
-	curWord = gtk_label_new((char*) "placeholder");
+	fullTxt = gtk_label_new((char*) "<Text sent appears here>");
+	curWord = gtk_label_new((char*) "<Current typing>");
 
 	grid = gtk_grid_new();
 	gtk_grid_set_row_spacing(GTK_GRID(grid), 2);
