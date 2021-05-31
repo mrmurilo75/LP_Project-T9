@@ -47,10 +47,16 @@ void buttonClick(GtkWidget *widget, gpointer data);
 void initialize() {
 	String fname = new_String( 18, "lusiadas_clean.txt");
 	FILE* dictFile = fopen(fname->value, "r");
-	dictionary = Dictionary_fillFromFile(dictFile);
+	if(dictFile == NULL)
+		fprintf(stderr, "Failed to open dictionary file\n");
+	else {
+		dictionary = Dictionary_fillFromFile(dictFile);
+	}
 
-	fullTxtStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 256), 256 );
-	curWordStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 64), 64 );
+	printf("Dicitionary filled\n");
+
+	fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
+	curWordStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
 
 	isCycling = 0; // false
 	llmCycle = NULL;
@@ -60,7 +66,11 @@ int main(int argc, char* argv[]) {
 
 	initialize();
 
-	gtk_init(&argc, & argv);
+	printf("Finished initialization\n");
+
+	gtk_init(&argc, NULL);
+
+	printf("GTK initialized\n");
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Project T9");
@@ -70,8 +80,8 @@ int main(int argc, char* argv[]) {
 
 	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
 
-	fullTxt = gtk_label_new((gchar*) "full txt place holder");
-	curWord = gtk_label_new((gchar*) "placeholder");
+	fullTxt = gtk_label_new((char*) "full txt place holder");
+	curWord = gtk_label_new((char*) "placeholder");
 
 	grid = gtk_grid_new();
 	gtk_grid_set_row_spacing(GTK_GRID(grid), 2);
@@ -90,7 +100,7 @@ int main(int argc, char* argv[]) {
 	gtk_box_pack_start(GTK_BOX(vbox), curWord, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), grid, TRUE, TRUE, 0);
 
-
+	printf("Finished GTK setup\n");
 
 	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
@@ -105,13 +115,14 @@ void numpad_clicked(int i);
 
 void cycle();
 
-void send();
+void sendTxt();
 
 void clear();
 
 void del();
 
 void buttonClick(GtkWidget *widget, gpointer data) {
+	printf("in button_click()\n");
 	const char *label = gtk_button_get_label(data);
 
 	int i;
@@ -131,7 +142,7 @@ void buttonClick(GtkWidget *widget, gpointer data) {
 			cycle();
 			return;
 		case '1':
-			send();
+			sendTxt();
 			return;
 		case '2':
 		case '3':
@@ -141,7 +152,7 @@ void buttonClick(GtkWidget *widget, gpointer data) {
 		case '7':
 		case '8':
 		case '9':
-			numpad_clicked(i);
+			numpad_clicked(val-'0');
 			return;
 		case '*':
 			clear();
@@ -149,25 +160,34 @@ void buttonClick(GtkWidget *widget, gpointer data) {
 		case '#':
 			del();
 			return;
+		default:
+			return;
 	}
 
 	return;
 }
 
 void numpad_clicked(int i) {
+	printf("in numpad_clicked()\n");
 	if(isCycling)
-		send();
+		sendTxt();
 
-	char *val = "0";
-	val[0] += i;
-	String end = new_String(1, val);
-	curWordStr = String_append(curWordStr, end);
+	//char *val = malloc(sizeof(char)*2);
+	//val[0] = '0' + i;
+	//val[1] = '\0';
+	//String end = new_String(1, val);
+	char val = '0' + i;
+	//printf("curWord = %s\n", curWordStr->value );
+	curWordStr = String_appendChar(curWordStr, val);
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	//printf("curWord = %s\n", curWordStr->value );
+	printf("out of numpad_clicked()\n");
 	return;
 }
 
 void cycle() {
+	printf("in cycle()\n");
 	if(!isCycling) {
 		isCycling = 1; // true
 
@@ -177,30 +197,39 @@ void cycle() {
 	curWordStr = (String) LinkedListMap_next(llmCycle);
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	//printf("curWord = %s\n", curWordStr->value );
+	printf("out of cycle()\n");
 	return;
 }
 
-void send() {
-	fullTxtStr = String_append(fullTxtStr, String_trim(curWordStr));
-
+void sendTxt() {
+	printf("in sendTxt()\n");
+	fullTxtStr = String_appendChar(fullTxtStr, ' ');
+	fullTxtStr = String_append(fullTxtStr, curWordStr);
 
 	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
+	//printf("fullTxt = %s\n", fullTxtStr->value );
 
 	clear();
+	printf("out of sendTxt()\n");
 
 	return;
 }
 
 void clear() {
+	printf("in clear()\n");
 	isCycling = 0; // false
 
-	curWordStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 64), 64 );
+	curWordStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	//printf("curWord = %s\n", curWordStr->value );
+	printf("out of clear()\n");
 	return;
 }
 
 void del() {
+	printf("in del()\n");
 	if(isCycling) {
 		clear();
 		return;
@@ -209,6 +238,9 @@ void del() {
 	String_del(curWordStr, 1);
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	//printf("curWord = %s\n", curWordStr->value );
+
+	printf("out of del()\n");
 	return;
 }
 

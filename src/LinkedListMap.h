@@ -10,21 +10,21 @@ LLMNode new_LLMNode() {
 }
 
 void LLMNode_setNext(LLMNode this, LLMNode next){
-	if(this == NULL) return;
-
-	if(next != NULL)
-		LLMNode_setPrevious(next, this);
+	if(this == NULL || this == next) return;
 
 	this->next = next;
+
+	if(next != NULL && LLMNode_getPrevious(next) != this)
+		LLMNode_setPrevious(next, this);
 }
 
 void LLMNode_setPrevious(LLMNode this, LLMNode previous) {
-	if(this == NULL) return;
-
-	if(previous != NULL)
-		LLMNode_setNext(previous, this);
+	if(this == NULL || this == previous) return;
 
 	this->previous = previous;
+
+	if(previous != NULL && LLMNode_getNext(previous) != this)
+		LLMNode_setNext(previous, this);
 }
 
 void LLMNode_setKey(LLMNode this, void* key) {

@@ -126,18 +126,62 @@ String String_append(String start, String end) {
 		return start;
 
 	if( start->size > (start->length + end->length) ) {
-		strcpy( &(start->value[start->length]), end->value );
+		for(int i = 0; i < end->length; i++)
+			(start->value)[start->length + i] = (end->value)[i];
+
+		//strcpy( &((start->value)[start->length]), end->value );
+		(start->value)[start->length + end->length] = '\0';
+		start->length = start->length + end->length; 
+
 		return start;
 	}
 
-	char *new_value = malloc(sizeof(char) * (start->length + end->length + 1));
+	int new_bufferSize = (start->length + end->length) * 2;
+	char *new_value = malloc(sizeof(char) * new_bufferSize);
+
 	strcpy(new_value, start->value);
-	strcpy( &(new_value[start->length]), end->value);
-	return new_String(start->length + end->length, new_value);
+	for(int i = 0; i < end->length; i++)
+		new_value[start->length + i] = (end->value)[i];
+	new_value[start->length + end->length] = '\0';
+	//strcpy( &(new_value[start->length]), end->value);
+
+	return new_StringWithBuffer(start->length + end->length, new_value, new_bufferSize);
+}
+
+String String_appendChar(String start, char end) {
+	if(start == NULL) {
+		char *new_value = malloc(sizeof(char) * 2);
+
+		new_value[0] = end;
+		new_value[1] = '\0';
+
+		return new_String(2, new_value);
+	}
+
+	if( start->size > (start->length + 1) ) {
+		(start->value)[start->length] = end;
+		(start->length)++;
+		(start->value)[start->length] = '\0';
+
+		return start;
+	}
+
+	char *new_value = malloc(sizeof(char) * (start->length + 2));
+	int length = start->length;
+	strcpy(new_value, start->value);
+	new_value[length] = end;
+	length++;
+	new_value[length] = '\0';
+	return new_String(length, new_value);
 }
 
 void String_del(String str, int i) {
-	str->value[ str->length - 1 - i ] = '\0';
+	if(str == NULL) return;
+
+	if(str->length == 0 || i == 0)
+		return;
+
+	str->value[ str->length - i ] = '\0';
 	str->length = str->length - i;
 
 	return;

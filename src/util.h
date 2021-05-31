@@ -44,7 +44,7 @@
 	int String_equals(String a, String b);
 		// return non-zero int if the value of the Strings *are* the same
 	
-	void* String_toStringT9(String value);		//
+	void* String_toStringT9(String value);
 		// value: the string to be transforme into t9
 		// returns the corresponding StringT9
 		// 	or NULL if theres is no equivalent (ex. if contains special characters)
@@ -56,6 +56,13 @@
 		// if it fits returns 'start' and 'start' is updated
 		// otherwise returns a new string and start is not changed
 		// (end is never changed)
+
+	String String_appendChar(String start, char end);
+		// start: the string to be at the start
+		// end: the char to be at the end
+		// tries to put the value of 'end' in start 
+		// if it fits returns 'start' and 'start' is updated
+		// otherwise returns a new string and start is not changed
 
 	void String_del(String str, int i);
 		// str: String to delete from

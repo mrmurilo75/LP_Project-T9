@@ -92,6 +92,7 @@ Dictionary Dictionary_fillFromFile(FILE* file) {
 
 	String word = readNextWord(file);
 	while(word != NULL) {
+		//printf("\tinserting word: %s\n", word->value); 
 		Dictionary_insert(dict, word);
 		word = readNextWord(file);
 	}
@@ -104,20 +105,22 @@ Dictionary Dictionary_fillFromFile(FILE* file) {
 
 	int i,
 		c;
-	char *word = malloc(sizeof(char) * 64);
+	char word[64];
 
-	while(!isalnum( c = fgetc(file) ));
+	while(!isalnum( c = fgetc(file) ) && c != EOF);
 
-	i = 0;
-	while(i < 63 && isalnum(c)) {
+	for(i = 0; i < 63 && isalnum(c); i++, c = fgetc(file))
 		word[i] = c;
-		i++;
-	}
 
-	word[ ++i ] = '\0';
+	word[ i ] = '\0';
 
-	if(i == 1)
+	if(i == 0)
 		return NULL; // String is empty
 
-	return new_String( i, word );
+	//printf("\tword: %s\n", word); 
+
+	char *word_trimmed = malloc(sizeof(char) * (i+1));
+	strcpy(word_trimmed, word);
+
+	return new_String( i, word_trimmed );
 }
