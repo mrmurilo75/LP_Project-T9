@@ -45,7 +45,8 @@ void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
 
 void initialize() {
-	String fname = new_String( 18, "lusiadas_clean.txt");
+	String fname = new_String( 18, "lus_test.txt");
+	//String fname = new_String( 18, "lusiadas_clean.txt");
 	FILE* dictFile = fopen(fname->value, "r");
 	if(dictFile == NULL)
 		fprintf(stderr, "Failed to open dictionary file\n");
@@ -188,31 +189,50 @@ void numpad_clicked(int i) {
 
 void cycle() {
 	printf("in cycle()\n");
+
+	StringT9 curWordStrT9;
+
 	if(!isCycling) {
 		isCycling = 1; // true
 
-		llmCycle = Dictionary_find(dictionary, String_toStringT9(curWordStr));
+		curWordStrT9 = String_toStringT9(curWordStr);
+		llmCycle = Dictionary_find(dictionary, curWordStrT9);
+		//printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
+	}
+
+	if(llmCycle == NULL) {
+		clear();
+		return;
 	}
 
 	curWordStr = (String) LinkedListMap_next(llmCycle);
+	//printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
 
-	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	if(curWordStr != NULL)
+		gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
+	else
+		clear();
 	//printf("curWord = %s\n", curWordStr->value );
+
 	printf("out of cycle()\n");
 	return;
 }
 
 void sendTxt() {
 	printf("in sendTxt()\n");
+
+	if(!isCycling)
+		cycle();
+
 	fullTxtStr = String_appendChar(fullTxtStr, ' ');
 	fullTxtStr = String_append(fullTxtStr, curWordStr);
 
 	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
-	//printf("fullTxt = %s\n", fullTxtStr->value );
+	printf("fullTxt = %s\n", fullTxtStr->value );
 
 	clear();
-	printf("out of sendTxt()\n");
 
+	printf("out of sendTxt()\n");
 	return;
 }
 
@@ -232,6 +252,8 @@ void del() {
 	printf("in del()\n");
 	if(isCycling) {
 		clear();
+
+		printf("out of del()\n");
 		return;
 	}
 

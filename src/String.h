@@ -58,48 +58,62 @@ int String_equals(String a, String b) {		// return non-zero int if the value of 
 
 void* String_toStringT9(String value) {
 	StringT9 nova = new_StringT9(value->length ,NULL);
-	char *new_value = malloc(sizeof(char) * (value->length +1));
+	char *new_value = malloc(sizeof(char) * (value->length));
 	char *pal = value->value;
 
 	for (int i = 0; i < value->length; i++) {
 		pal[i] = tolower(pal[i]);
 		switch (pal[i]) {
+			case '0':
+				new_value[i] = '0';
+				break;
+			case '1':
+				new_value[i] = '1';
+				break;
+			case '2':
 			case 'a':
 			case 'b':
 			case 'c': 
 				new_value[i] = '2';
 				break;
+			case '3':
 			case 'd':
 			case 'e':
 			case 'f': 
 				new_value[i] = '3';
 				break;
+			case '4':
 			case 'g': 
 			case 'h': 
 			case 'i': 
 				new_value[i] = '4';
 				break;
+			case '5':
 			case 'j':
 			case 'k':
 			case 'l': 
 				new_value[i] = '5';
 				break;
+			case '6':
 			case 'm':
 			case 'n':
 			case 'o': 
 				new_value[i] = '6';
 				break;
+			case '7':
 			case 'p':
 			case 'q':
 			case 'r':
 			case 's':
 				new_value[i] = '7';
 				break;
+			case '8':
 			case 't':
 			case 'u':
 			case 'v':
 				new_value[i] = '8';
 				break;
+			case '9':
 			case 'w':
 			case 'x':
 			case 'y':

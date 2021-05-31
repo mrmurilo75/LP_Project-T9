@@ -92,13 +92,7 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 /*private*/ BSTMNode BSTMNode_rotateLeft(BSTMNode node);
 
 void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
-	if(key == NULL) return;
-
-	if(tree == NULL) {
-		new_BSTreeMap();
-		BSTreeMap_insert(tree, key, value);
-		return;
-	}
+	if(tree == NULL || key == NULL) return;
 
 	void* root = tree->root;
 	if(root == NULL) {
@@ -125,6 +119,13 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 	}
 	if(comparison < 0) {
 		BSTMNode left = BSTMNode_getLeftNode(node);
+
+		if(left == NULL) {
+			left = new_BSTMNode(key, value);
+			BSTMNode_setLeftNode(node, left);
+			return BSTMNode_rotateRight(node);		// return the result of the rotation to be set as new left by the parent
+		}
+
 		BSTMNode newLeft = BSTMNode_insert(left, key, value);
 
 		if(newLeft == NULL)
@@ -135,6 +136,13 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 	}
 	if(comparison > 0) {
 		BSTMNode right = BSTMNode_getRightNode(node);
+
+		if(right == NULL) {
+			right = new_BSTMNode(key, value);
+			BSTMNode_setRightNode(node, right);
+			return BSTMNode_rotateLeft(node);		// return the result of the rotation to be set as new left by the parent
+		}
+
 		BSTMNode newRight = BSTMNode_insert(right, key, value);
 
 		if(newRight == NULL)
@@ -148,10 +156,10 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
 }
 
 /*private*/ BSTMNode BSTMNode_rotateRight(BSTMNode node) {
-    BSTMNode temp = BSTMNode_getLeftNode(node);
-    BSTMNode_setLeftNode(node, BSTMNode_getRightNode(temp));
-    BSTMNode_setRightNode(temp, node);
-    return temp;
+    BSTMNode left = BSTMNode_getLeftNode(node);
+    BSTMNode_setRightNode(left, node);
+    BSTMNode_setLeftNode(node, BSTMNode_getRightNode(left));
+    return left;
 }
 
 

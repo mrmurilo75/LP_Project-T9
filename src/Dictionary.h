@@ -50,19 +50,25 @@ void Dictionary_insert(Dictionary dict, String value) {
 		int position = StringT9_getIntHead(valueT9);
 		bstm = HashMap_get(dict->bigWords, &position);
 
+		printf("pos= %d\t", position);
+
 		if(bstm == NULL) {
 			bstm = new_BSTreeMap();
 			HashMap_insert(dict->bigWords, &position, bstm);
 		}
-	} else 
+	} else {
+		printf("\t\t");
 		bstm = dict->smallWords;
+	}
 
 	llm = (LinkedListMap) BSTreeMap_find(bstm, valueT9);
+	printf("v=     %s\tvT9= %s\tllm= %p\n", value->value, valueT9->value, llm);
 	LLMNode node;
 
 	if(llm == NULL) {
 		llm = new_LinkedListMap();
 		BSTreeMap_insert(bstm, valueT9, llm);
+		printf("inserted %p\n", BSTreeMap_find(bstm, valueT9));
 		node = NULL;
 	} else 
 		node = LinkedListMap_getNodeByValue(llm, value);
