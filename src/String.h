@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "util.h"
 
 String new_String(int length, char* value) {
@@ -29,11 +30,11 @@ String new_StringWithBuffer(int length, char* value, int size) {
 int String_compare(String a, String b) {	// compare String objects
 
 	int minLength = a->length;
-	if(b->length < minLenght) 
-		minLenght = b->length;
+	if(b->length < minLength) 
+		minLength = b->length;
 
 	int i = 0;
-	while(i < minLenght && a->value[i] == b->value[i])
+	while(i < minLength && a->value[i] == b->value[i])
 		i++;
 
 	if (a->value[i] != b->value[i])
@@ -56,55 +57,57 @@ int String_equals(String a, String b) {		// return non-zero int if the value of 
 
 void* String_toStringT9(String value) {
 	StringT9 nova = new_StringT9(value->length ,NULL);
-	char new_value[value->length];
-	char pal[value->length];
-	strcpy(pal,value->value);
+	char *new_value = malloc(sizeof(char) * (value->length +1));
+	char *pal = value->value;
 
 	for (int i = 0; i < value->length; i++) {
 		pal[i] = tolower(pal[i]);
 		switch (pal[i]) {
-			case 'a': new_value[i] = '2';   break;
-			case 'b': new_value[i] = '2';   break;
-			case 'c': new_value[i] = '2';   break;
-			case 'd': new_value[i] = '3';   break;
-			case 'e': new_value[i] = '3';   break;
-			case 'f': new_value[i] = '3';   break;
-			case 'g': new_value[i] = '4';   break;
-			case 'h': new_value[i] = '4';   break;
-			case 'i': new_value[i] = '4';   break;
-			case 'j': new_value[i] = '5';   break;
-			case 'k': new_value[i] = '5';   break;
-			case 'l': new_value[i] = '5';   break;
-			case 'm': new_value[i] = '6';   break;
-			case 'n': new_value[i] = '6';   break;
-			case 'o': new_value[i] = '6';   break;
-			case 'p': new_value[i] = '7';   break;
-			case 'q': new_value[i] = '7';   break;
-			case 'r': new_value[i] = '7';   break;
-			case 's': new_value[i] = '7';   break;
-			case 't': new_value[i] = '8';   break;
-			case 'u': new_value[i] = '8';   break;
-			case 'v': new_value[i] = '8';   break;
-			case 'w': new_value[i] = '9';   break;
-			case 'x': new_value[i] = '9';   break;
-			case 'y': new_value[i] = '9';   break;
-			case 'z': new_value[i] = '9';   break;
-            case '1': new_value[i] = '1';   break;
-            case '2': new_value[i] = '2';   break;
-            case '3': new_value[i] = '3';   break;
-            case '4': new_value[i] = '4';   break;
-            case '5': new_value[i] = '5';   break;
-            case '6': new_value[i] = '6';   break;
-            case '7': new_value[i] = '7';   break;
-            case '8': new_value[i] = '8';   break;
-            case '9': new_value[i] = '9';   break;
-            case '0': new_value[i] = '0';   break;
-			default: new_value[i] = '.';	break;
+			case 'a':
+			case 'b':
+			case 'c': 
+				new_value[i] = '2';
+				break;
+			case 'd':
+			case 'e':
+			case 'f': 
+				new_value[i] = '3';
+				break;
+			case 'g': 
+			case 'h': 
+			case 'i': 
+				new_value[i] = '4';
+				break;
+			case 'j':
+			case 'k':
+			case 'l': 
+				new_value[i] = '5';
+				break;
+			case 'm':
+			case 'n':
+			case 'o': 
+				new_value[i] = '6';
+				break;
+			case 'p':
+			case 'q':
+			case 'r':
+			case 's':
+				new_value[i] = '7';
+				break;
+			case 't':
+			case 'u':
+			case 'v':
+				new_value[i] = '8';
+				break;
+			case 'w':
+			case 'x':
+			case 'y':
+			case 'z':
+				new_value[i] = '9';
+				break;
+			default:
+				return NULL;
 		}
-	}
-
-	for (int i = 0; i < value->length; i++) {
-		if (new_value[i] == '.') return NULL;
 	}
 
 	nova->value = new_value;
