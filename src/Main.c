@@ -1,8 +1,8 @@
 #include "util.h"
 #include "Dictionary.h"
-#include <gtk/gtk.h>
 #include <ctype.h>
 #include <string.h>
+#include <gtk/gtk.h>
 
 GtkWidget *window,
 	*vbox,
@@ -45,8 +45,8 @@ void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
 
 void initialize() {
-	String fname = new_String( 18, (int *)"lusiadas_clean.txt");
-	FILE* dictFile = fopen((char*)fname->value, "r");
+	String fname = new_String( 18, "lusiadas_clean.txt");
+	FILE* dictFile = fopen(fname->value, "r");
 	dictionary = Dictionary_fillFromFile(dictFile);
 
 	fullTxtStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 256), 256 );
@@ -163,7 +163,7 @@ void numpad_clicked(int i) {
 	String end = new_String(1, val);
 	curWordStr = String_append(curWordStr, end);
 
-	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	return;
 }
 
@@ -176,7 +176,7 @@ void cycle() {
 
 	curWordStr = (String) LinkedListMap_next(llmCycle);
 
-	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	return;
 }
 
@@ -184,7 +184,7 @@ void send() {
 	fullTxtStr = String_append(fullTxtStr, String_trim(curWordStr));
 
 
-	gtk_set_label( (GtkLabel *) fullTxt, fullTxtStr->value );
+	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
 
 	clear();
 
@@ -196,7 +196,7 @@ void clear() {
 
 	curWordStr = new_StringWithBuffer( 0, (char *) malloc(sizeof(char) * 64), 64 );
 
-	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	return;
 }
 
@@ -208,7 +208,7 @@ void del() {
 
 	String_del(curWordStr, 1);
 
-	gtk_set_label( (GtkLabel *) curWord, curWordStr->value );
+	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	return;
 }
 
