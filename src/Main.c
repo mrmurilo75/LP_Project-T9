@@ -46,8 +46,8 @@ void buttonClick(GtkWidget *widget, gpointer data);
 
 void initialize() {
 //	String fname = new_String( 18, "lus_test2.txt");
-	String fname = new_String( 18, "lus_test.txt");
-//	String fname = new_String( 18, "lusiadas_clean.txt");
+//	String fname = new_String( 18, "lus_test.txt");
+	String fname = new_String( 18, "lusiadas_clean.txt");
 	FILE* dictFile = fopen(fname->value, "r");
 	if(dictFile == NULL)
 		fprintf(stderr, "Failed to open dictionary file\n");
@@ -190,7 +190,7 @@ void numpad_clicked(int i) {
 
 void cycle() {
 	printf("in cycle()\n");
-		printf("here");
+		printf("here\n");
 
 	StringT9 curWordStrT9;
 
@@ -203,7 +203,6 @@ void cycle() {
 	}
 
 	if(llmCycle == NULL) {
-		clear();
 		return;
 	}
 

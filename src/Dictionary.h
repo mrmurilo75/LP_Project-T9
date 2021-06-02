@@ -40,6 +40,7 @@ void Dictionary_insert(Dictionary dict, String value) {
 	if(dict == NULL || value == NULL)
 		return;
 
+	printf("inserting %s\n", value->value);
 	StringT9 valueT9 = String_toStringT9(value);
 	if(valueT9 == NULL) return;
 
@@ -57,7 +58,7 @@ void Dictionary_insert(Dictionary dict, String value) {
 			HashMap_insert(dict->bigWords, &position, bstm);
 		}
 	} else {
-		printf("\t\t");
+		printf("small\t\t");
 		bstm = dict->smallWords;
 	}
 
