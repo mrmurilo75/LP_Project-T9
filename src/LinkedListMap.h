@@ -6,6 +6,10 @@ LLMNode new_LLMNode() {
 	result->next = NULL;
 	result->previous = NULL;
 	result->value = NULL;
+	int* key = malloc(sizeof(int));
+	*key = 0;
+	result->key = (void*) key;
+
 	return result;
 }
 
@@ -56,6 +60,16 @@ void* LLMNode_getValue(LLMNode this) {
 	if(this == NULL) return NULL;
 	return this->value;
 }
+void LLMNode_print(LLMNode node) {
+	printf("t= %p\t", node);
+	printf("k= %d\t", *((int*)(node->key)));
+	printf("v= %s\t", ((String)(node->value))->value);
+	printf("n= %p\t", node->next);
+	printf("p= %p\t", node->previous);
+	printf("\n");
+
+	return;
+}
 
 
 LinkedListMap new_LinkedListMap() {
@@ -105,6 +119,7 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 
 		return;
 	}
+	prin tf("@LLLM : this function is possibly only going as far as setting the root, then a mistake happens in this following block athat prevents other node from being added");
 
 	int keyValue = *( (int*) key ), currentKeyValue;
 	LLMNode current, next;
@@ -142,6 +157,18 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 	return;
 }
 
+void LinkedListMap_print(LinkedListMap list) {
+	for(LLMNode current = LinkedListMap_getRoot(list); 
+			current != NULL;
+			current = LLMNode_getNext(current) 
+	) {
+		printf("%p\t", list);
+		LLMNode_print(current);
+	}
+
+	return;
+}
+
 void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
 	if(list == NULL || key == NULL) return;
 
@@ -150,6 +177,8 @@ void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
 	LLMNode_setValue(newNode, value);
 
 	LinkedListMap_addNode(list, newNode);
+
+	LinkedListMap_print(list);
 
 	return;
 }
