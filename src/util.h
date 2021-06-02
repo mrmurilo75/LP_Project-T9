@@ -68,6 +68,9 @@
 		// str: String to delete from
 		// i: number of characters to be deleted
 
+    String String_readTextFile(FILE* file);
+        //file: file from where we read the string
+
 #endif // STRING_TYPE_INCLUDED		--
 
 

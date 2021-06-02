@@ -201,3 +201,16 @@ void String_del(String str, int i) {
 	return;
 }
 
+
+String String_readTextFile(FILE* file) {
+
+    fseek(file,0,SEEK_END);
+    int long n = ftell(file);
+    char * str = (char*) malloc(n * sizeof(char));
+    fseek(file,0,SEEK_SET);
+
+    for (int i = 0; i< n;i++)
+        str[i] = fgetc(file);
+
+    return new_String(length,str);
+}
