@@ -65,19 +65,19 @@ void* BSTreeMap_find(BSTreeMap tree, void* key) {
 	while(node != NULL) {
 //	printf("HERE\n");
 		int comparison = BSTMNode_compareKey(node, key);
-	printf("node= %p\tcmp= %d\t", node, comparison);
+	//printf("node= %p\tcmp= %d\t", node, comparison);
 
 		if(comparison == 0)
 			return BSTMNode_getValue(node);
 		if(comparison < 0) {
 			node = BSTMNode_getLeftNode(node);
-			printf("left= %p\t", node);
+			//printf("left= %p\t", node);
 		}
 		else if(comparison > 0) {
 			node = BSTMNode_getRightNode(node);
-			printf("rigt= %p\t", node);
+			//printf("rigt= %p\t", node);
 		}
-			printf("\n");
+			//printf("\n");
 	}
 
 	return NULL;

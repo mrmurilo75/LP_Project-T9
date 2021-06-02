@@ -201,6 +201,7 @@ void* LinkedListMap_current(LinkedListMap list) {
 void* LinkedListMap_next(LinkedListMap list) {
 	if(list == NULL) return NULL;
 
+	printf("HERE\n");
 	if(list->current != NULL)
 		list->current = LLMNode_getNext(list->current);
 	if(list->current == NULL)

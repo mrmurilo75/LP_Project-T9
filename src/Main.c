@@ -57,6 +57,18 @@ void initialize() {
 
 	printf("Dicitionary filled\n");
 
+/*
+	FILE* fullTxtFile = fopen("fullTxt.txt", "r");
+	if(fullTxtFile != NULL) {
+		fullTxtStr = String_readTextFile(fullTxtFile);
+		fullTxtFile = freopen(NULL, "a", fullTxtFile);
+	}
+	if(fullTxtFile == NULL) {
+		fullTxtFile = fopen("fullTxt.txt", "w");
+		fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
+	}
+*/
+
 	fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
 	curWordStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
 
@@ -203,6 +215,7 @@ void cycle() {
 	}
 
 	if(llmCycle == NULL) {
+		isCycling = 0;
 		return;
 	}
 
@@ -222,14 +235,18 @@ void cycle() {
 void sendTxt() {
 	printf("in sendTxt()\n");
 
-	if(!isCycling)
+	if(!isCycling) {
 		cycle();
+		if(!isCycling)
+			return;
+		clear();
+	}
 
 	fullTxtStr = String_appendChar(fullTxtStr, ' ');
 	fullTxtStr = String_append(fullTxtStr, curWordStr);
 
 	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
-	printf("fullTxt = %s\n", fullTxtStr->value );
+	//printf("fullTxt = %s\n", fullTxtStr->value );
 
 	clear();
 
