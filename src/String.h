@@ -212,5 +212,5 @@ String String_readTextFile(FILE* file) {
     for (int i = 0; i< n;i++)
         str[i] = fgetc(file);
 
-    return new_String(length,str);
+    return new_String(n,str);
 }
