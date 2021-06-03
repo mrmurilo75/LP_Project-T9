@@ -59,11 +59,11 @@ BSTreeMap new_BSTreeMap() {
 
 
 void* BSTreeMap_find(BSTreeMap tree, void* key) {
+	printf("@BSTM_find()\n");
 	if(tree == NULL || key == NULL) return NULL;
 
 	BSTMNode node = tree->root;
 	while(node != NULL) {
-//	printf("HERE\n");
 		int comparison = BSTMNode_compareKey(node, key);
 	//printf("node= %p\tcmp= %d\t", node, comparison);
 

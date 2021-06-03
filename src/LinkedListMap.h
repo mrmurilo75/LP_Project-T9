@@ -110,18 +110,20 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 }
 
 /*private*/ void LinkedListMap_addNode(LinkedListMap list, LLMNode newNode) {
+	printf("\t@LLM_addNode\n");
 	if(list == NULL || newNode == NULL) return;
 
-	void *key = LLMNode_getKey(newNode);
+	int *key = (int*) LLMNode_getKey(newNode);
 
 	if(LinkedListMap_getRoot(list) == NULL) {
+		printf("\t\tsetting root\n");
 		LinkedListMap_setRoot(list, newNode);
 
+		printf("\tdone\n");
 		return;
 	}
-	prin tf("@LLLM : this function is possibly only going as far as setting the root, then a mistake happens in this following block athat prevents other node from being added");
 
-	int keyValue = *( (int*) key ), currentKeyValue;
+	int keyValue = *(key), currentKeyValue, i =0;
 	LLMNode current, next;
 	for(current = LinkedListMap_getRoot(list), 
 			next = LLMNode_getNext(current), 
@@ -130,35 +132,55 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 			&& currentKeyValue <= keyValue;
 		current = LLMNode_getNext(current), 
 			next = LLMNode_getNext(current), 
-			     currentKeyValue = *( (int*) LLMNode_getKey(current) ));
+			     currentKeyValue = *( (int*) LLMNode_getKey(current) ), i++) {
+		if(current == LinkedListMap_getRoot(list))
+			printf("root");
+		printf("\t");
+		LLMNode_print(current);
+//		printf("\tc= %p\tn= %p\t k= %d\tck= %d\n", current, next, keyValue, currentKeyValue);
+		if(i>50)
+			exit(EXIT_FAILURE);
+	}
 
 	if(currentKeyValue <= keyValue) {
 		if(next == NULL) {
 			LLMNode_setNext(current, newNode);
 
+			printf("\tdone\n");
 			return;
 		}
 		LLMNode_setPrevious(next, newNode);
 		LLMNode_setNext(current, newNode);
 
+		printf("\tdone\n");
 		return;
 	}
 
 	LLMNode previous = LLMNode_getPrevious(current);
 
-	if(previous == NULL) {
+	if(previous != NULL) {
+		LLMNode_setNext(previous, newNode);
 		LLMNode_setPrevious(current, newNode);
 
+		printf("\tdone\n");
 		return;
 	}
-	LLMNode_setNext(previous, newNode);
+
 	LLMNode_setPrevious(current, newNode);
 
+	if(current == LinkedListMap_getRoot(list))
+		LinkedListMap_setRoot(list, newNode);
+
+	printf("\tdone\n");
 	return;
 }
 
 void LinkedListMap_print(LinkedListMap list) {
-	for(LLMNode current = LinkedListMap_getRoot(list); 
+	LLMNode root = LinkedListMap_getRoot(list),
+		current;
+		printf("%p r\t", list);
+		LLMNode_print(root);
+	for(current = root;
 			current != NULL;
 			current = LLMNode_getNext(current) 
 	) {
@@ -184,6 +206,7 @@ void LinkedListMap_add(LinkedListMap list, void* key, void* value) {
 }
 
 LLMNode LinkedListMap_getNodeByValue(LinkedListMap list, void* value) {
+	printf("@LLM_getNodeByValue\n");
 	if(list == NULL) return NULL;
 
 	String valueStr = (String) value, currentValueStr;
@@ -192,29 +215,47 @@ LLMNode LinkedListMap_getNodeByValue(LinkedListMap list, void* value) {
 	for(current = LinkedListMap_getRoot(list), 
 			currentValueStr = (String) LLMNode_getValue(current);
 		current != NULL
-			&& (comparison = String_compare(valueStr, currentValueStr)) > 0;
+			&& (comparison = String_compare(valueStr, currentValueStr)) != 0;
 		current = LLMNode_getNext(current),
-			currentValueStr = (String) LLMNode_getValue(current) );
+			currentValueStr = (String) LLMNode_getValue(current) ) {
 
-	if(current != NULL && comparison == 0)
+	}
+
+	if(current != NULL && comparison == 0) {
+		printf("done (L_gN)\n");
 		return current;
+	}
 
+	printf("done (L_gN)\n");
 	return NULL;
 }
 
 void LinkedListMap_updateNode(LinkedListMap list, LLMNode node) {
+	printf("@LLM_updateNode\n");
 	if(list == NULL || node == NULL) return;
 
 // simply remove and add again (can be done better by simply going foward or backwards)
 
 	LLMNode previous = LLMNode_getPrevious(node),
-		next = LLMNode_getNext(node);
+		next = LLMNode_getNext(node),
+		root = LinkedListMap_getRoot(list);
+
+	if(node == root) {
+		printf("\tremoving root\n");
+		LLMNode_setPrevious(next, NULL);
+		LinkedListMap_setRoot(list, next);
+	}
 	LLMNode_setNext(previous, next);
 	LLMNode_setPrevious(node, NULL);
 	LLMNode_setNext(node, NULL);
 
+	printf("\t");
+	LLMNode_print(node);
+
+	printf("\treadding node\n");
 	LinkedListMap_addNode(list, node);
 
+	printf("done\n");
 	return;
 }
 
@@ -230,7 +271,6 @@ void* LinkedListMap_current(LinkedListMap list) {
 void* LinkedListMap_next(LinkedListMap list) {
 	if(list == NULL) return NULL;
 
-	printf("HERE\n");
 	if(list->current != NULL)
 		list->current = LLMNode_getNext(list->current);
 	if(list->current == NULL)

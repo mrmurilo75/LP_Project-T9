@@ -40,7 +40,7 @@ void Dictionary_insert(Dictionary dict, String value) {
 	if(dict == NULL || value == NULL)
 		return;
 
-	printf("inserting %s\n", value->value);
+	printf("@Dictionary_insert( %s )\n", value->value);
 	StringT9 valueT9 = String_toStringT9(value);
 	if(valueT9 == NULL) return;
 
@@ -51,14 +51,11 @@ void Dictionary_insert(Dictionary dict, String value) {
 		int position = StringT9_getIntHead(valueT9);
 		bstm = HashMap_get(dict->bigWords, &position);
 
-		printf("pos= %d\t", position);
-
 		if(bstm == NULL) {
 			bstm = new_BSTreeMap();
 			HashMap_insert(dict->bigWords, &position, bstm);
 		}
 	} else {
-		printf("small\t\t");
 		bstm = dict->smallWords;
 	}
 
@@ -69,23 +66,29 @@ void Dictionary_insert(Dictionary dict, String value) {
 	if(llm == NULL) {
 		llm = new_LinkedListMap();
 		BSTreeMap_insert(bstm, valueT9, llm);
-		printf("inserted %p\n", BSTreeMap_find(bstm, valueT9));
+		printf("\tinserting in new BSTM\n");
+		printf("\tinserted %p\n", BSTreeMap_find(bstm, valueT9));
 		node = NULL;
-	} else 
+	} else {
+		printf("\ttrying LLM_getNodeByValue\n");
 		node = LinkedListMap_getNodeByValue(llm, value);
+	}
 
 	if(node == NULL) {
+		printf("\tcreate/insert new node\n");
 		Integer newCount = new_Integer();
 		*newCount = 1;
 
 		LinkedListMap_add(llm, newCount, value);
 
 	} else {
+		printf("\tup-counting\n");
 		Integer count = (Integer) LLMNode_getKey(node);
 
 		(*count)++;
 		LinkedListMap_updateNode(llm, node);
 	}
+	printf("done (D_i)\n");
 
 	return;
 }
