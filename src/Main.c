@@ -41,24 +41,26 @@ LinkedListMap llmCycle;
 
 byte isCycling;
 
+FILE *fullTxtFile, *dictionaryFile;
+
 void buttonClick(GtkWidget *widget, gpointer data);
 // create a button_cliked callback that compare the label and calls the respective funtion
 
 void initialize() {
-//	String fname = new_String( 18, "lus_test2.txt");
-//	String fname = new_String( 18, "lus_test.txt");
-	String fname = new_String( 18, "lusiadas_clean.txt");
-	FILE* dictFile = fopen(fname->value, "r");
-	if(dictFile == NULL)
+//	String fname = new_String( 13, "lus_test2.txt");
+//	String fname = new_String( 12, "lus_test.txt");
+//	String fname = new_String( 18, "lusiadas_clean.txt");
+	String fname = new_String( 14, "dictionary.txt");
+	dictionaryFile = fopen(fname->value, "r");
+	if(dictionaryFile == NULL)
 		fprintf(stderr, "Failed to open dictionary file\n");
-	else {
-		dictionary = Dictionary_fillFromFile(dictFile);
-	}
+	else
+		dictionary = Dictionary_fillFromFile(dictionaryFile);
 
 	printf("Dicitionary filled\n");
 
-/*
-	FILE* fullTxtFile = fopen("fullTxt.txt", "r");
+
+	fullTxtFile = fopen("fullTxt.txt", "r");
 	if(fullTxtFile != NULL) {
 		fullTxtStr = String_readTextFile(fullTxtFile);
 		fullTxtFile = freopen(NULL, "a", fullTxtFile);
@@ -67,9 +69,9 @@ void initialize() {
 		fullTxtFile = fopen("fullTxt.txt", "w");
 		fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
 	}
-*/
 
-	fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
+//	fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(256, sizeof(char)), 256 );
+
 	curWordStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
 
 	isCycling = 0; // false
@@ -94,7 +96,7 @@ int main(int argc, char* argv[]) {
 
 	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
 
-	fullTxt = gtk_label_new((char*) "<Text sent appears here>");
+	fullTxt = gtk_label_new( fullTxtStr->value );
 	curWord = gtk_label_new((char*) "<Current typing>");
 
 	grid = gtk_grid_new();
@@ -237,13 +239,16 @@ void sendTxt() {
 
 	if(!isCycling) {
 		cycle();
-		if(!isCycling)
+		if(!isCycling) {
+			clear();
 			return;
-		clear();
+		}
 	}
 
 	fullTxtStr = String_appendChar(fullTxtStr, ' ');
 	fullTxtStr = String_append(fullTxtStr, curWordStr);
+
+	fprintf(fullTxtFile, " %s", curWordStr->value);
 
 	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
 	//printf("fullTxt = %s\n", fullTxtStr->value );
