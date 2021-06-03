@@ -213,6 +213,7 @@ void cycle() {
 
 		curWordStrT9 = String_toStringT9(curWordStr);
 		llmCycle = Dictionary_find(dictionary, curWordStrT9);
+		LinkedListMap_reset(llmCycle);
 		printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
 	}
 
@@ -245,10 +246,23 @@ void sendTxt() {
 		}
 	}
 
-	fullTxtStr = String_appendChar(fullTxtStr, ' ');
-	fullTxtStr = String_append(fullTxtStr, curWordStr);
+	fprintf(dictionaryFile, " ");
 
-	fprintf(fullTxtFile, " %s", curWordStr->value);
+	if(fullTxtStr->length - 1 > 0 && fullTxtStr->value[fullTxtStr->length - 1] != '\n') {
+		fullTxtStr = String_appendChar(fullTxtStr, ' ');
+		fprintf(fullTxtFile, " ");
+	}
+
+	int oldLength = fullTxtStr->length;
+
+	fullTxtStr = String_append(fullTxtStr, curWordStr);
+	fprintf(fullTxtFile, "%s", curWordStr->value);
+	fprintf(dictionaryFile, "%s", curWordStr->value);
+
+	if( (oldLength % 25) > (fullTxtStr->length % 25) ) {
+		fullTxtStr = String_appendChar(fullTxtStr, '\n');
+		fprintf(fullTxtFile, "\n");
+	}
 
 	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
 	//printf("fullTxt = %s\n", fullTxtStr->value );
@@ -259,9 +273,16 @@ void sendTxt() {
 	return;
 }
 
+void fullClear();
+
 void clear() {
 	printf("in clear()\n");
 	isCycling = 0; // false
+
+	if(curWordStr->length == 0) {
+		fullClear();
+		return;
+	}
 
 	curWordStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
 
@@ -269,6 +290,14 @@ void clear() {
 	//printf("curWord = %s\n", curWordStr->value );
 	printf("out of clear()\n");
 	return;
+}
+
+void fullClear() {
+	fullTxtStr = new_StringWithBuffer( 0, (char *) calloc(64, sizeof(char)), 64 );
+	fclose(fullTxtFile);
+	fullTxtFile = fopen("fullTxt.txt", "w");
+
+	gtk_label_set_text( (GtkLabel *) fullTxt, fullTxtStr->value );
 }
 
 void del() {

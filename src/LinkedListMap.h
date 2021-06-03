@@ -129,7 +129,7 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 			next = LLMNode_getNext(current), 
 			currentKeyValue = *( (int*) LLMNode_getKey(current) );
 		next != NULL
-			&& currentKeyValue <= keyValue;
+			&& currentKeyValue >= keyValue;
 		current = LLMNode_getNext(current), 
 			next = LLMNode_getNext(current), 
 			     currentKeyValue = *( (int*) LLMNode_getKey(current) ), i++) {
@@ -142,7 +142,7 @@ void* LinkedListMap_find(LinkedListMap list, void* key) {
 			exit(EXIT_FAILURE);
 	}
 
-	if(currentKeyValue <= keyValue) {
+	if(currentKeyValue >= keyValue) {
 		if(next == NULL) {
 			LLMNode_setNext(current, newNode);
 
@@ -277,5 +277,11 @@ void* LinkedListMap_next(LinkedListMap list) {
 		list->current = LinkedListMap_getRoot(list);
 
 	return LLMNode_getValue(list->current);
+}
+
+void LinkedListMap_reset(LinkedListMap list) {
+	if(list == NULL) return;
+
+	list->current = NULL;
 }
 
