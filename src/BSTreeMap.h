@@ -59,7 +59,7 @@ BSTreeMap new_BSTreeMap() {
 
 
 void* BSTreeMap_find(BSTreeMap tree, void* key) {
-	printf("@BSTM_find()\n");
+	//printf("@BSTM_find()\n");
 	if(tree == NULL || key == NULL) return NULL;
 
 	BSTMNode node = tree->root;
@@ -172,6 +172,3 @@ void BSTreeMap_insert(BSTreeMap tree, void* key, void* value) {
     BSTMNode_setLeftNode(temp, node);
     return temp;
 }
-
-
-

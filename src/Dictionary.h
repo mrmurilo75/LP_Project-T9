@@ -30,7 +30,7 @@ LinkedListMap Dictionary_find(Dictionary dict, StringT9 value) {
 			bstm = new_BSTreeMap();
 			HashMap_insert(dict->bigWords, &position, bstm);
 		}
-	} else 
+	} else
 		bstm = dict->smallWords;
 
 	return (LinkedListMap) BSTreeMap_find(bstm, value);
@@ -40,7 +40,7 @@ void Dictionary_insert(Dictionary dict, String value) {
 	if(dict == NULL || value == NULL)
 		return;
 
-	printf("@Dictionary_insert( %s )\n", value->value);
+	//printf("@Dictionary_insert( %s )\n", value->value);
 	StringT9 valueT9 = String_toStringT9(value);
 	if(valueT9 == NULL) return;
 
@@ -60,35 +60,35 @@ void Dictionary_insert(Dictionary dict, String value) {
 	}
 
 	llm = (LinkedListMap) BSTreeMap_find(bstm, valueT9);
-	printf("v=     %s\tvT9= %s\tllm= %p\n", value->value, valueT9->value, llm);
+	//printf("v=     %s\tvT9= %s\tllm= %p\n", value->value, valueT9->value, llm);
 	LLMNode node;
 
 	if(llm == NULL) {
 		llm = new_LinkedListMap();
 		BSTreeMap_insert(bstm, valueT9, llm);
-		printf("\tinserting in new BSTM\n");
-		printf("\tinserted %p\n", BSTreeMap_find(bstm, valueT9));
+		//printf("\tinserting in new BSTM\n");
+		//printf("\tinserted %p\n", BSTreeMap_find(bstm, valueT9));
 		node = NULL;
 	} else {
-		printf("\ttrying LLM_getNodeByValue\n");
+		//printf("\ttrying LLM_getNodeByValue\n");
 		node = LinkedListMap_getNodeByValue(llm, value);
 	}
 
 	if(node == NULL) {
-		printf("\tcreate/insert new node\n");
+		//printf("\tcreate/insert new node\n");
 		Integer newCount = new_Integer();
 		*newCount = 1;
 
 		LinkedListMap_add(llm, newCount, value);
 
 	} else {
-		printf("\tup-counting\n");
+		//printf("\tup-counting\n");
 		Integer count = (Integer) LLMNode_getKey(node);
 
 		(*count)++;
 		LinkedListMap_updateNode(llm, node);
 	}
-	printf("done (D_i)\n");
+	//printf("done (D_i)\n");
 
 	return;
 }
@@ -102,7 +102,7 @@ Dictionary Dictionary_fillFromFile(FILE* file) {
 
 	String word = readNextWord(file);
 	while(word != NULL) {
-		//printf("\tinserting word: %s\n", word->value); 
+		//printf("\tinserting word: %s\n", word->value);
 		Dictionary_insert(dict, word);
 		word = readNextWord(file);
 	}
@@ -127,7 +127,7 @@ Dictionary Dictionary_fillFromFile(FILE* file) {
 	if(i == 0)
 		return NULL; // String is empty
 
-	//printf("\tword: %s\n", word); 
+	//printf("\tword: %s\n", word);
 
 	char *word_trimmed = malloc(sizeof(char) * (i+1));
 	strcpy(word_trimmed, word);

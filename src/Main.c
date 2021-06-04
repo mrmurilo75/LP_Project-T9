@@ -25,11 +25,11 @@ GtkWidget *window,
 	*btnSend;
 	*/
 
-gchar *buttonLabels[12] = { 
-	" 1\n ~", " 2\nabc", " 3\ndef", 
-	" 4\nghi", " 5\njkl", "  6\nmno", 
-	"  7\npqrs", " 8\ntuv", "  9\nwxyz", 
-	" *\nclr", " 0\ncycl", " #\ndel" 
+gchar *buttonLabels[12] = {
+	" 1\n ~", " 2\nabc", " 3\ndef",
+	" 4\nghi", " 5\njkl", "  6\nmno",
+	"  7\npqrs", " 8\ntuv", "  9\nwxyz",
+	" *\nclr", " 0\ncycl", " #\ndel"
 	};
 
 String fullTxtStr,
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
 	for(int line = 0, pos = 0; line < 4; line++)
 		for(int col = 0; col < 3; col++) {
 			buttons[pos] = gtk_button_new_with_label(buttonLabels[pos]);
-			g_signal_connect(G_OBJECT(buttons[pos]), "clicked", G_CALLBACK(buttonClick), buttons[pos]); 
+			g_signal_connect(G_OBJECT(buttons[pos]), "clicked", G_CALLBACK(buttonClick), buttons[pos]);
 			gtk_grid_attach(GTK_GRID(grid), buttons[pos], col, line, 1, 1);
 			pos++;
 		}
@@ -138,20 +138,20 @@ void clear();
 void del();
 
 void buttonClick(GtkWidget *widget, gpointer data) {
-	printf("in button_click()\n");
+	//printf("in button_click()\n");
 	const char *label = gtk_button_get_label(data);
 
 	int i;
-	for(i = 0; i < 9 
-		&& ( 
-			!isdigit(label[i]) 
-			&& label[i] != '#' 
-			&& label[i] != '*' 
+	for(i = 0; i < 9
+		&& (
+			!isdigit(label[i])
+			&& label[i] != '#'
+			&& label[i] != '*'
 		); i++);
 
 	const char val = label[i];
 
-	g_print("button %c\n", val);
+	//g_print("button %c\n", val);
 
 	switch(val) {
 		case '0':
@@ -184,7 +184,7 @@ void buttonClick(GtkWidget *widget, gpointer data) {
 }
 
 void numpad_clicked(int i) {
-	printf("in numpad_clicked()\n");
+	//printf("in numpad_clicked()\n");
 	if(isCycling)
 		sendTxt();
 
@@ -198,13 +198,13 @@ void numpad_clicked(int i) {
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	//printf("curWord = %s\n", curWordStr->value );
-	printf("out of numpad_clicked()\n");
+	//printf("out of numpad_clicked()\n");
 	return;
 }
 
 void cycle() {
-	printf("in cycle()\n");
-		printf("here\n");
+	//printf("in cycle()\n");
+		//printf("here\n");
 
 	StringT9 curWordStrT9;
 
@@ -214,7 +214,7 @@ void cycle() {
 		curWordStrT9 = String_toStringT9(curWordStr);
 		llmCycle = Dictionary_find(dictionary, curWordStrT9);
 		LinkedListMap_reset(llmCycle);
-		printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
+		//printf("dict= %p\tcWS= %p\tcWST9= %p\tllmC= %p\n", dictionary, curWordStr, curWordStrT9, llmCycle);
 	}
 
 	if(llmCycle == NULL) {
@@ -231,12 +231,12 @@ void cycle() {
 		clear();
 	//printf("curWord = %s\n", curWordStr->value );
 
-	printf("out of cycle()\n");
+	//printf("out of cycle()\n");
 	return;
 }
 
 void sendTxt() {
-	printf("in sendTxt()\n");
+	//printf("in sendTxt()\n");
 
 	if(!isCycling) {
 		cycle();
@@ -269,14 +269,14 @@ void sendTxt() {
 
 	clear();
 
-	printf("out of sendTxt()\n");
+	//printf("out of sendTxt()\n");
 	return;
 }
 
 void fullClear();
 
 void clear() {
-	printf("in clear()\n");
+	//printf("in clear()\n");
 	isCycling = 0; // false
 
 	if(curWordStr->length == 0) {
@@ -288,7 +288,7 @@ void clear() {
 
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	//printf("curWord = %s\n", curWordStr->value );
-	printf("out of clear()\n");
+	//printf("out of clear()\n");
 	return;
 }
 
@@ -301,11 +301,11 @@ void fullClear() {
 }
 
 void del() {
-	printf("in del()\n");
+	//printf("in del()\n");
 	if(isCycling) {
 		clear();
 
-		printf("out of del()\n");
+		//printf("out of del()\n");
 		return;
 	}
 
@@ -314,7 +314,6 @@ void del() {
 	gtk_label_set_text( (GtkLabel *) curWord, curWordStr->value );
 	//printf("curWord = %s\n", curWordStr->value );
 
-	printf("out of del()\n");
+	//printf("out of del()\n");
 	return;
 }
-
